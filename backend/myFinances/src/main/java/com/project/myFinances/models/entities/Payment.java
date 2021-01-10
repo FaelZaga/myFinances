@@ -2,8 +2,10 @@ package com.project.myFinances.models.entities;
 
 import com.project.myFinances.models.enums.StatusPayment;
 import com.project.myFinances.models.enums.TypePayment;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import javax.persistence.*;
@@ -12,8 +14,10 @@ import java.time.LocalDate;
 
 @Entity
 @Table(schema = "finances")
-@Data
 @Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Payment {
 
     @Id

@@ -30,9 +30,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity createUser(@RequestBody User user) {
+    public ResponseEntity save(@RequestBody User user) {
         try {
-            return new ResponseEntity(userService.createUser(user), HttpStatus.CREATED);
+            return new ResponseEntity(userService.save(user), HttpStatus.CREATED);
         }catch(BusinessRuleException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

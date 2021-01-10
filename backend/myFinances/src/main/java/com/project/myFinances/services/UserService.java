@@ -6,8 +6,8 @@ import com.project.myFinances.models.entities.User;
 import com.project.myFinances.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Component
@@ -31,7 +31,7 @@ public class UserService {
     }
 
     @Transactional
-    public User createUser(User user) {
+    public User save(User user) {
         validateEmail(user.getEmail());
         return userRepository.save(user);
     }

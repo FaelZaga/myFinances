@@ -36,6 +36,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new BusinessRuleException("User not found"));
+    }
+
     public void validateEmail(String email) {
         if (userRepository.existsByEmail(email)) {
             throw new BusinessRuleException("Email already exists.");

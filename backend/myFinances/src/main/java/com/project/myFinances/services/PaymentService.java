@@ -1,10 +1,14 @@
 package com.project.myFinances.services;
 
+import com.project.myFinances.models.entities.User;
 import com.project.myFinances.exceptions.BusinessRuleException;
 import com.project.myFinances.models.entities.Payment;
 import com.project.myFinances.models.enums.StatusPayment;
+import com.project.myFinances.models.enums.TypePayment;
 import com.project.myFinances.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +31,6 @@ public class PaymentService {
 
     @Transactional
     public Payment update(Payment payment) {
-        Objects.requireNonNull(payment.getId());
         validate(payment);
         return paymentRepository.save(payment);
     }
@@ -43,29 +46,51 @@ public class PaymentService {
         paymentRepository.delete(payment);
     }
 
+    public Payment findById(Long id) {
+        return paymentRepository.findById(id)
+                .orElseThrow(() -> new BusinessRuleException("Payment not found"));
+    }
+
     @Transactional
-    public List<Payment> search(Payment payment) {
-        return null;
+    public List<Payment> searchBy(User user, String description, Integer month, Integer year, TypePayment type, StatusPayment status) {
+        Payment payment = fillFields(user,description,month,year,type,status);
+        Example example = Example.of(payment, ExampleMatcher.matching()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING));
+        return paymentRepository.findAll(example);
     }
 
     public void validate(Payment payment) {
         if (payment.getDescription() == null || payment.getDescription().trim().equals("")) {
-            throw new BusinessRuleException("Description field is required");
+            throw new BusinessRuleException("Incorrect description field");
         }
         if (payment.getMonth() == null || payment.getMonth() < 1 || payment.getMonth() > 12) {
-            throw new BusinessRuleException("Month field is required");
+            throw new BusinessRuleException("Incorrect month field");
         }
         if (payment.getYear() == null || payment.getYear().toString().length() != 4) {
-            throw new BusinessRuleException("Year field is required");
+            throw new BusinessRuleException("Incorrect year field");
         }
         if (payment.getUser() == null || payment.getUser().getId() == null) {
             throw new BusinessRuleException("User field is required");
         }
         if (payment.getValue() == null || payment.getValue().compareTo(BigDecimal.ZERO) < 1) {
-            throw new BusinessRuleException("Value field is required");
+            throw new BusinessRuleException("Incorrect value field");
         }
         if (payment.getType() == null) {
-            throw new BusinessRuleException("Type field is required");
+            throw new BusinessRuleException("Incorrect type field");
         }
+    }
+
+    public Payment fillFields(User user, String description, Integer month, Integer year, TypePayment type, StatusPayment status) {
+        Payment payment = new Payment();
+
+        payment.setUser(user);
+        payment.setDescription(description);
+        payment.setMonth(month);
+        payment.setYear(year);
+        payment.setType(type);
+        payment.setStatus(status);
+
+        return payment;
     }
 }

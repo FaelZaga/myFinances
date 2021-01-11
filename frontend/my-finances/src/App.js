@@ -1,5 +1,14 @@
 import React from 'react'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-export default props => (
-  <div></div>
-)
+import Routes from './routes'
+
+function App() {
+  return (
+    <div className="App">
+      <Routes />
+    </div>
+  );
+}
+
+export default App;

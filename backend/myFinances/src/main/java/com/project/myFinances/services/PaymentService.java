@@ -25,30 +25,20 @@ public class PaymentService {
     @Transactional
     public Payment save(Payment payment) {
         validate(payment);
-        payment.setStatus(StatusPayment.PENDING);
         return paymentRepository.save(payment);
     }
 
     @Transactional
     public Payment update(Payment payment) {
+        Objects.requireNonNull(payment.getId());
         validate(payment);
         return paymentRepository.save(payment);
-    }
-
-    public void updateStatus(Payment payment, StatusPayment statusPayment) {
-        payment.setStatus(statusPayment);
-        update(payment);
     }
 
     @Transactional
     public void delete(Payment payment) {
         Objects.requireNonNull(payment.getId());
         paymentRepository.delete(payment);
-    }
-
-    public Payment findById(Long id) {
-        return paymentRepository.findById(id)
-                .orElseThrow(() -> new BusinessRuleException("Payment not found"));
     }
 
     @Transactional
@@ -60,7 +50,30 @@ public class PaymentService {
         return paymentRepository.findAll(example);
     }
 
+    @Transactional(readOnly = true)
+    public BigDecimal getPaymentBalanceByType(Long id) {
+        BigDecimal incomes = paymentRepository.getPaymentBalanceByType(id,TypePayment.INCOME);
+        BigDecimal expenses = paymentRepository.getPaymentBalanceByType(id,TypePayment.EXPENSES);
+
+        if (incomes == null) {
+            incomes = BigDecimal.ZERO;
+        }
+        if (expenses == null) {
+            expenses = BigDecimal.ZERO;
+        }
+
+        return incomes.subtract(expenses);
+    }
+
+    public Payment findById(Long id) {
+        return paymentRepository.findById(id)
+                .orElseThrow(() -> new BusinessRuleException("Payment not found"));
+    }
+
     public void validate(Payment payment) {
+        if (payment.getUser() == null || payment.getUser().getId() == null) {
+            throw new BusinessRuleException("User field is required");
+        }
         if (payment.getDescription() == null || payment.getDescription().trim().equals("")) {
             throw new BusinessRuleException("Incorrect description field");
         }
@@ -70,14 +83,14 @@ public class PaymentService {
         if (payment.getYear() == null || payment.getYear().toString().length() != 4) {
             throw new BusinessRuleException("Incorrect year field");
         }
-        if (payment.getUser() == null || payment.getUser().getId() == null) {
-            throw new BusinessRuleException("User field is required");
-        }
         if (payment.getValue() == null || payment.getValue().compareTo(BigDecimal.ZERO) < 1) {
             throw new BusinessRuleException("Incorrect value field");
         }
         if (payment.getType() == null) {
             throw new BusinessRuleException("Incorrect type field");
+        }
+        if (payment.getStatus() == null) {
+            throw new BusinessRuleException("Incorrect status field");
         }
     }
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -34,6 +35,12 @@ public class UserService {
     public User save(User user) {
         validateEmail(user.getEmail());
         return userRepository.save(user);
+    }
+
+    @Transactional
+    public void delete(User user) {
+        Objects.requireNonNull(user.getId());
+        userRepository.delete(user);
     }
 
     public User findById(Long id) {

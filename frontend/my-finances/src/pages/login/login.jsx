@@ -1,14 +1,65 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
+
+import axios from 'axios'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock, faSmile, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+
 import './login.css'
 
 import imgLog from '../../assets/log.svg'
-import imgRegister from '../../assets/register.svg'
+import imgReg from '../../assets/register.svg'
 
 export default function Login() {
     const [container,setContainer] = useState("container");
+
+    const [loadTitle,setLoadTitle] = useState("");
+    const [loadMsg,setLoadMsg] = useState("");
+    const [logBtn,setLogBtn] = useState(false);
+    const [regBtn,setRegBtn] = useState(false);
+
+    const [name,setName] = useState("");
+    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
+
+    const signin = () => {
+        setLogBtn(false);
+        setRegBtn(false);
+        setContainer("container loading-mode")
+        setLoadTitle("Connecting...")
+        setLoadMsg("wait a moment while we try to connect to your account")
+        axios.post('http://localhost:8080/api/users/auth', {
+            email: email,
+            password: password
+        }).then(res=> {
+            console.log(res)
+        }).catch(err=> {
+            setLoadTitle("Something went wrong!")
+            setLoadMsg(err.response.data)
+            setLogBtn(true);
+        })
+    }
+
+    const signup = () => {
+        setLogBtn(false);
+        setRegBtn(false);
+        setContainer("container creating-mode")
+        setLoadTitle("Creating...")
+        setLoadMsg("wait a moment while we create your account")
+        axios.post('http://localhost:8080/api/users', {
+            name: name,
+            email: email,
+            password: password
+        }).then(res=> {
+            setLoadTitle("Welcome!")
+            setLoadMsg("your account has been created with success")
+            setLogBtn(true);
+        }).catch(err=> {
+            setLoadTitle("Something went wrong!")
+            setLoadMsg(err.response.data)
+            setRegBtn(true);
+        })
+    }
     
     return (
         <div className={container}>
@@ -18,30 +69,51 @@ export default function Login() {
                         <h2 className="title">Sign in</h2>
                         <div className="input-field">                                              
                             <i><FontAwesomeIcon icon={faUser} /></i>
-                            <input type="text" placeholder="Enter email"></input>
+                            <input type="email" 
+                                placeholder="Enter email"
+                                onChange={e => setEmail(e.target.value)}
+                                value={email}
+                            />
                         </div>
                         <div className="input-field">
                             <i><FontAwesomeIcon icon={faLock} /></i>
-                            <input type="password" placeholder="Enter password"></input>
+                            <input type="password" 
+                                placeholder="Enter password"
+                                onChange={e => setPassword(e.target.value)}
+                                value={password}
+                            />
                         </div>
-                        <input type="submit" value="Login" className="btn solid"></input>
+                        <input value="Enter" className="btn solid" onClick={signin}></input>
                     </form>
 
                     <form className="signup-form">
                         <h2 className="title">Sign up</h2>
                         <div className="input-field">
                             <i><FontAwesomeIcon icon={faSmile} /></i>
-                            <input type="text" placeholder="Enter name"></input>
+                            <input type="text"
+                                placeholder="Enter name"
+                                autoCapitalize="words"
+                                onChange={e => setName(e.target.value)}
+                                value={name}
+                            />
                         </div>
                         <div className="input-field">
                             <i><FontAwesomeIcon icon={faEnvelope} /></i>
-                            <input type="text" placeholder="Enter email"></input>
+                            <input type="email"
+                                placeholder="Enter email"
+                                onChange={e => setEmail(e.target.value)}
+                                value={email}
+                            />
                         </div>
                         <div className="input-field">
                             <i><FontAwesomeIcon icon={faLock} /></i>
-                            <input type="password" placeholder="Enter password"></input>
+                            <input type="password"
+                                placeholder="Enter password"
+                                onChange={e => setPassword(e.target.value)}
+                                value={password}
+                            />
                         </div>
-                        <input type="submit" value="Sign up" className="btn solid"></input>
+                        <input value="Sign up" className="btn solid" onClick={signup}></input>
                     </form>
                 </div>
             </div>
@@ -62,7 +134,16 @@ export default function Login() {
                         <p>Log in to your account and manage your finances right now!</p>
                         <button className="btn transparent" onClick={() => setContainer("container")}>Sign in</button>
                     </div>
-                    <img src={imgRegister} className="image" alt=""/>
+                    <img src={imgReg} className="image" alt=""/>
+                </div>
+            </div>
+
+            <div className="panel loading-creating">
+                <div className="content">
+                    <h3>{loadTitle}</h3>
+                    <p>{loadMsg}</p>
+                    {logBtn? <button className="btn transparent" onClick={() => setContainer("container")}>Return</button> : null}
+                    {regBtn? <button className="btn transparent" onClick={() => setContainer("container sign-up-mode")}>Return</button> : null}
                 </div>
             </div>
         </div>

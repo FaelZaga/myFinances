@@ -33,7 +33,7 @@ public class UserService {
 
     @Transactional
     public User save(User user) {
-        validateEmail(user.getEmail());
+        validate(user);
         return userRepository.save(user);
     }
 
@@ -51,6 +51,19 @@ public class UserService {
     public void validateEmail(String email) {
         if (userRepository.existsByEmail(email)) {
             throw new BusinessRuleException("Email already exists.");
+        }
+    }
+
+    public void validate(User user) {
+        validateEmail(user.getEmail());
+        if (user.getName() == null || user.getName().length() < 3) {
+            throw new BusinessRuleException("Name is required with 3 characters minimum");
+        }
+        if (user.getEmail() == null || !user.getEmail().contains("@")) {
+            throw new BusinessRuleException("Incorrect email field");
+        }
+        if (user.getPassword() == null || user.getPassword().length() < 6) {
+            throw new BusinessRuleException("Incorrect password field");
         }
     }
 }

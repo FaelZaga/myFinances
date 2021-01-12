@@ -24,7 +24,7 @@ body, input {
     width: 2000px;
     height: 2000px;
     border-radius: 50%;
-    background: linear-gradient(-45deg, #4481eb, #04befe);
+    background: linear-gradient(-45deg, #2fb441, #05c444);
     top: -10%;
     right: 48%;
     transform: translateY(-50%);
@@ -96,7 +96,7 @@ form.signup-form {
     text-align: center;
     line-height: 55px;
     color: #acacac;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
 }
 
 .input-field input {
@@ -122,7 +122,7 @@ form.signup-form {
     outline: none;
     border-radius: 49px;
     cursor: pointer;
-    background-color: #5995fd;
+    background-color: #2fb441;
     color: #fff;
     font-weight: 700;
     margin: 10px 0;
@@ -130,7 +130,7 @@ form.signup-form {
 }
 
 .btn:hover {
-    background-color: #4d84e2;
+    background-color: #0ec049;
     color: #fff;
 }
 
@@ -171,22 +171,25 @@ form.signup-form {
 .panel h3 {
     font-weight: 600;
     line-height: 1;
-    font-size: 2.7rem;
+    font-size: 2.8rem;
+    text-align: left;
 }
 
 .panel p {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     padding: 0.7rem 0;
+    text-align: left;
+    font-weight: 500;
 }
 
 .btn.transparent {
     margin: 0;
     background: none;
     border: 2px solid #fff;
-    width: 130px;
-    height: 41px;
-    font-weight: 600;
-    font-size: 1.5rem;
+    width: 150px;
+    height: 49px;
+    font-weight: 700;
+    font-size: 1.2rem;
 }
 
 .btn.transparent:focus {

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser, faLock, faSmile, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import './login.css'
 
 import imgLog from '../../assets/log.svg'
@@ -14,12 +16,12 @@ export default function Login() {
                 <div className="signin-signup">
                     <form className="signin-form">
                         <h2 className="title">Sign in</h2>
-                        <div className="input-field">
-                            <i className="fas fa-user"></i>
+                        <div className="input-field">                                              
+                            <i><FontAwesomeIcon icon={faUser} /></i>
                             <input type="text" placeholder="Enter email"></input>
                         </div>
                         <div className="input-field">
-                            <i className="fas fa-user"></i>
+                            <i><FontAwesomeIcon icon={faLock} /></i>
                             <input type="password" placeholder="Enter password"></input>
                         </div>
                         <input type="submit" value="Login" className="btn solid"></input>
@@ -28,15 +30,15 @@ export default function Login() {
                     <form className="signup-form">
                         <h2 className="title">Sign up</h2>
                         <div className="input-field">
-                            <i className="fas fa-user"></i>
+                            <i><FontAwesomeIcon icon={faSmile} /></i>
                             <input type="text" placeholder="Enter name"></input>
                         </div>
                         <div className="input-field">
-                            <i className="fas fa-envelope"></i>
+                            <i><FontAwesomeIcon icon={faEnvelope} /></i>
                             <input type="text" placeholder="Enter email"></input>
                         </div>
                         <div className="input-field">
-                            <i className="fas fa-user"></i>
+                            <i><FontAwesomeIcon icon={faLock} /></i>
                             <input type="password" placeholder="Enter password"></input>
                         </div>
                         <input type="submit" value="Sign up" className="btn solid"></input>
@@ -47,8 +49,8 @@ export default function Login() {
             <div className="panels-container">
                 <div className="panel left-panel">
                     <div className="content">
-                        <h3>New here?</h3>
-                        <p>Texto de teste escrito aqui sem nenhum sentido aparentemente</p>
+                        <h3>Are you new here?</h3>
+                        <p>Create your account and start managing your finances quickly and easily!</p>
                         <button className="btn transparent" onClick={() => setContainer("container sign-up-mode")}>Sign up</button>
                     </div>
                     <img src={imgLog} className="image" alt=""/>
@@ -57,7 +59,7 @@ export default function Login() {
                 <div className="panel right-panel">
                     <div className="content">
                         <h3>Already have an account?</h3>
-                        <p>Texto de teste escrito aqui sem nenhum sentido aparentemente</p>
+                        <p>Log in to your account and manage your finances right now!</p>
                         <button className="btn transparent" onClick={() => setContainer("container")}>Sign in</button>
                     </div>
                     <img src={imgRegister} className="image" alt=""/>

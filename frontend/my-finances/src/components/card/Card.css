@@ -1,0 +1,124 @@
+.card {
+    flex-direction: row;
+    background-color: #e0e0e0;
+    margin: 15px;
+    align-content: center;
+    border: none;
+}
+
+.card .card-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.card .card-column .action {
+    flex: 1;
+    border: none;
+    display: flex;
+    width: 120px;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+}
+
+.card .card-column.details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    min-width: 150px;
+}
+
+.card .card-column.details .detail.value {
+    max-width: 170px;
+    text-align: right;
+}
+
+.card .card-column.details .detail.value input {
+    border-bottom-left-radius: 15px;
+    text-align: right;
+    font-size: 2rem;
+}
+
+.card .card-column.details .detail-group {
+    flex: 1;
+    display: flex;
+}
+
+.card .card-column.details .detail {
+    flex: 1;
+    display: flex;
+    margin: 2px;
+    flex-direction: column;
+}
+
+.card .card-column.details .detail select,
+.card .card-column.details .detail input {
+    border: none;
+    padding: 0 2px;
+    transition: .2s;
+    font-weight: bolder;
+}
+
+.card .card-column.details .detail select:disabled,
+.card .card-column.details .detail input:disabled {
+    border: hidden;
+    color: #000;
+    background: none;
+}
+
+.card .card-column .action:focus,
+.card .card-column.details .detail input:focus {
+    outline: none;
+}
+
+.card .card-column.details .detail span {
+    margin: 0 2px;
+
+}
+
+.card .card-column .action.status {
+    background-color : #5bfa5b;
+}
+
+.card .card-column .action.edit {
+    background-color : #3ec0e0;
+    transition: 0.3s;
+}
+
+.card .card-column .action.edit:hover {
+    border: solid transparent;
+    background-color : #2f89a0;
+}
+
+.card .card-column .action.delete {
+    background-color : #e94545;
+    transition: 0.3s;
+}
+
+.card .card-column .action.delete:hover {
+    border: solid transparent;
+    background-color : #972e2e;
+}
+
+.card .card-column .action.save {
+    background-color : #30e939;
+    transition: 0.3s;
+}
+
+.card .card-column .action.save:hover {
+    border: solid transparent;
+    background-color : #1f8f24;
+}
+
+.card .card-column .action.cancel {
+    background-color : #e94545;
+    transition: 0.3s;
+}
+
+.card .card-column .action.cancel:hover {
+    border: solid transparent;
+    background-color : #972e2e;
+}

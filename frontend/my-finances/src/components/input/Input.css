@@ -1,0 +1,26 @@
+.input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.input #input {
+    padding-right: 25px;
+    outline: none;
+}
+
+.input .btn-clean {
+    display: flex;
+    position: absolute;
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 9px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.input .btn-clean:focus {
+    outline: none;
+}

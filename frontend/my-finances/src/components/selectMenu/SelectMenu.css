@@ -1,0 +1,28 @@
+.select-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.select-menu #select {
+    flex: 1;
+    padding-right: 25px;
+    -webkit-appearance: none;
+    outline: none;
+}
+
+.select-menu .btn-clean {
+    display: flex;
+    position: absolute;
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 9px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.select-menu .btn-clean:focus {
+    outline: none;
+}

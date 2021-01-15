@@ -5,7 +5,7 @@ import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock, faSmile, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
-import './login.css'
+import './Login.css'
 
 import imgLog from '../../assets/log.svg'
 import imgReg from '../../assets/register.svg'

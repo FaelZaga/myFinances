@@ -39,7 +39,7 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li className="nav-item" onClick={showSidebar}>
-                        <Link className="btn-item">
+                        <Link className="btn-item" to="/login">
                             <i><FontAwesomeIcon icon={faSadTear}/></i>
                             <span>Logout</span>
                         </Link>

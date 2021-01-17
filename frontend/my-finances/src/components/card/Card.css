@@ -1,9 +1,11 @@
 .card {
     flex-direction: row;
-    background-color: #e0e0e0;
+    background-color: #dbdfae;
     margin: 15px;
     align-content: center;
+    align-items: stretch;
     border: none;
+    height: 170px;
 }
 
 .card .card-column {
@@ -15,18 +17,31 @@
     flex: 1;
     border: none;
     display: flex;
-    width: 120px;
+    width: 50px;
     color: #fff;
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 1.2rem;
+    font-weight: 500;
     align-items: center;
     justify-content: center;
+}
+
+.card .card-column .action span {
+    transform:rotate(-90deg);
+}
+
+.card .card-column .action:focus {
+    outline: none;
+}
+
+.card .card-column.details .detail-group {
+    flex: 1;
+    display: flex;
+    font-size: 0.8rem;
 }
 
 .card .card-column.details {
     flex: 1;
     display: flex;
-    flex-direction: column;
     margin: 10px;
     min-width: 150px;
 }
@@ -42,11 +57,6 @@
     font-size: 2rem;
 }
 
-.card .card-column.details .detail-group {
-    flex: 1;
-    display: flex;
-}
-
 .card .card-column.details .detail {
     flex: 1;
     display: flex;
@@ -57,68 +67,85 @@
 .card .card-column.details .detail select,
 .card .card-column.details .detail input {
     border: none;
-    padding: 0 2px;
-    transition: .2s;
-    font-weight: bolder;
+    font-size: 1.2rem;
 }
 
-.card .card-column.details .detail select:disabled,
-.card .card-column.details .detail input:disabled {
-    border: hidden;
+.card .card-column.details .detail input {
+    padding: 0 4px;
+}
+
+.card .card-column.details .detail select,
+.card .card-column.details .detail input::placeholder {
     color: #000;
-    background: none;
+    font-weight: normal;
 }
 
-.card .card-column .action:focus,
+.card .card-column.details .detail select option:first-of-type {
+    display: none;
+}
+
+
+.card .card-column.details .detail select,
 .card .card-column.details .detail input:focus {
     outline: none;
 }
 
-.card .card-column.details .detail span {
-    margin: 0 2px;
-
+.card .card-column .action.new {
+    background-color : #5e5e5e;
 }
 
-.card .card-column .action.status {
-    background-color : #5bfa5b;
+.card .card-column .action.expenses {
+    background-color : #e94545;
 }
 
-.card .card-column .action.edit {
-    background-color : #3ec0e0;
-    transition: 0.3s;
-}
-
-.card .card-column .action.edit:hover {
-    border: solid transparent;
+.card .card-column .action.income {
     background-color : #2f89a0;
 }
 
-.card .card-column .action.delete {
-    background-color : #e94545;
-    transition: 0.3s;
-}
-
-.card .card-column .action.delete:hover {
-    border: solid transparent;
-    background-color : #972e2e;
-}
-
 .card .card-column .action.save {
-    background-color : #30e939;
-    transition: 0.3s;
+    background-color : #42c079;
 }
 
 .card .card-column .action.save:hover {
-    border: solid transparent;
-    background-color : #1f8f24;
+    background-color : #2e8353;
 }
 
 .card .card-column .action.cancel {
-    background-color : #e94545;
-    transition: 0.3s;
+    background-color : #ec5d5d;
 }
 
 .card .card-column .action.cancel:hover {
-    border: solid transparent;
-    background-color : #972e2e;
+    background-color : #8d3434;
+}
+
+@media (max-width: 570px) {
+    .card {
+        height: 270px;
+    }
+
+    .card .card-column .action {
+        width: 30px;
+        font-size: 1rem;
+    }
+
+    .card .card-column.details .detail-group {
+        flex-direction: column;
+    }
+
+    .card .card-column.details .detail-group select,
+    .card .card-column.details .detail-group input {
+        font-size: 1rem;
+    }
+
+    .card .card-column.details .detail-group option {
+        font-size: 0.8rem;
+    }
+
+    .card .card-column.details .detail.value {
+        max-width: none;
+    }
+
+    .card .card-column.details .detail.value input {
+        font-size: 1.8rem;
+    }
 }

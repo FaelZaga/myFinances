@@ -8,10 +8,9 @@ import './SelectMenu.css'
 export default function SelectMenu(props) {
     const [value, setValue] = useState("");
 
-    const options = props.options.map(option => {
+    const options = props.options.map((option,i) => {
         return (
-            option.value === "" ? <option value={option.value} hidden>{option.label}</option> :
-            <option value={option.value}>{option.label}</option>
+            <option key={i} value={option.value}>{option.label}</option>
         )
     })
 

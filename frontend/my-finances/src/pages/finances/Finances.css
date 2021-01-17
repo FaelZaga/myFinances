@@ -1,29 +1,55 @@
 .container-body {
     max-height: 80vh;
+    background-color: #fff;
 }
 
 .search-panel {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color:#acacac;
+    background-color: #2f7438;
     padding: .5rem 2rem .5rem 2rem;
 }
 
-.search-panel .input-label {
+.search-panel-group {
     display: flex;
-    color: #fff;
+    flex-direction: row;
+}
+
+.search-panel-group .panel-group {
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    margin: 0 1rem 0 0;
-    height: 30px;
+    justify-content: center;
+}
+
+.search-panel .button-span {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: #fff;
+    margin: 0 1rem;
     font-size: 1.2rem;
     font-weight: 700;
+    transition: .1s ease-in-out;
+}
+
+.search-panel .button-span:hover {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.search-panel .button-span:focus {
+    outline: none;
 }
 
 .search-panel .select-field,
 .search-panel .input-field {
-    flex: 1;
+    display: flex;
     background-color: #fff;
     height: 30px;
     margin-left: 1px;
@@ -34,12 +60,13 @@
 }
 
 .search-panel .input-field.first{
+    width: 250px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
 }
 
 .search-panel .input-field.last {
-    max-width: 80px;
+    width: 80px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
@@ -52,4 +79,74 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+
+.edit-panel {
+    max-height: 75vh;
+    overflow-y: scroll;
+}
+
+.finances-panel .create-panel {
+    opacity: 0;  
+    transition: .4s;
+}
+
+.finances-panel .create-panel.active {
+    opacity: 1;
+    transition: .4s .4s ease-in-out;
+}
+
+.finances-panel .edit-panel {
+    transform: translateY(-200px);
+    transition: .4s .4s ease-in-out;
+}
+
+.finances-panel .edit-panel.active {
+    transform: translateY(0);
+    max-height: 46vh;
+    transition: .4s;
+    filter: blur(1px);
+    pointer-events:none;
+    overflow: hidden;
+}
+
+@media (max-width: 870px) {
+    .search-panel .button-span {
+        width: 40px;
+        height: 30px;
+        margin: 0 1rem 0 0;
+        font-size: 1.1rem;
+        font-weight: 400;
+    }
+
+    .search-panel .button-span:hover {
+        font-size: 1.2rem;
+        font-weight: 400;
+    }
+
+    .search-panel .select-field,
+    .search-panel .input-field {
+        height: 20px;
+        font-size: 0.8rem;
+        padding: 0 1.5rem;
+    }
+
+    .search-panel .input-field.first{
+        width: 100px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .search-panel .input-field.last {
+        width: 70px;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+}
+
+@media (max-width: 570px) {
+    .finances-panel .edit-panel {
+        transform: translateY(-300px);
+        transition: .4s .4s ease-in-out;
+    }
 }

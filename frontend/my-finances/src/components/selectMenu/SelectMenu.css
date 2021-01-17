@@ -12,6 +12,10 @@
     outline: none;
 }
 
+.select-menu #select option:first-child {
+    display: none;
+}
+
 .select-menu .btn-clean {
     display: flex;
     position: absolute;

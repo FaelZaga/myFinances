@@ -5,12 +5,15 @@ import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock, faSmile, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
+import { useHistory } from "react-router-dom";
+
 import './Login.css'
 
 import imgLog from '../../assets/log.svg'
 import imgReg from '../../assets/register.svg'
 
-export default function Login() {
+function Login(props) {
+    let history = useHistory();
     const [container,setContainer] = useState("container");
 
     const [loadTitle,setLoadTitle] = useState("");
@@ -32,6 +35,7 @@ export default function Login() {
             email: email,
             password: password
         }).then(res=> {
+            history.push("/dashboard")
             console.log(res)
         }).catch(err=> {
             setLoadTitle("Something went wrong!")
@@ -149,3 +153,5 @@ export default function Login() {
         </div>
     );
 }
+
+export default Login

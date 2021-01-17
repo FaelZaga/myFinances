@@ -44,6 +44,15 @@ public class PaymentController {
         }
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity findById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(paymentService.findById(id));
+        }catch(BusinessRuleException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @GetMapping
     public ResponseEntity searchBy(
             @RequestParam(value = "user") Long id,

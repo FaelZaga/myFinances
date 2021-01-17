@@ -15,7 +15,7 @@ export const months = [
 ]
 export const types = [
     { label: 'Type', value: '' },
-    { label: 'Income', value: "INCOMES" },
+    { label: 'Income', value: "INCOME" },
     { label: 'Expenses', value: "EXPENSES" },
 ]
 export const status = [

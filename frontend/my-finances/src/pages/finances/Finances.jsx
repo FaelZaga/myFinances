@@ -11,11 +11,13 @@ import { months, types, status } from '../../components/selectMenu/SelectMenuDat
 import './Finances.css'
 
 export default function Finances() {
-    const [create,setCreate] = useState(false);
+    const [hidden,setHidden] = useState(false);
+    const [newPayment,setNewPayment] = useState(false);
 
+    const [id,setId] = useState("");
     const [description, setDescription] = useState("");
     const [type, setType] = useState("");
-    const [statuss, setStatuss] = useState("");
+    const [stat, setStat] = useState("");
     const [month, setMonth] = useState("");
     const [year, setYear] = useState("");
     const [value, setValue] = useState("");
@@ -24,7 +26,67 @@ export default function Finances() {
 
     useEffect(() => {
         loadPayments()
-    }, [])
+    }, [hidden])
+
+    async function create() {
+        await axios.post('http://localhost:8080/api/payments', {
+            "description": description,
+            "month": month,
+            "year": year,
+            "value": value,
+            "type": type,
+            "status": stat,
+            "user": {
+                "id": 10,
+                "name": "Usuario um",
+                "email": "usuario1@email.com",
+                "password": "um23456"
+            }
+        }).then(res=> {
+            console.log("saved with success")
+            setHidden(!hidden)
+        }).catch(err=> {
+            console.log(err.response.data)
+        })
+    }
+
+    async function edit() {
+        await axios.put('http://localhost:8080/api/payments/'+id, {
+            "description": description,
+            "month": month,
+            "year": year,
+            "value": value,
+            "type": type,
+            "status": stat,
+            "user": {
+                "id": 10,
+                "name": "Usuario um",
+                "email": "usuarioum@email.com",
+                "password": "user123"
+            }
+        }).then(res=> {
+            console.log("edited with success")
+            setHidden(!hidden)
+        }).catch(err=> {
+            console.log(err.response.data)
+        })
+    }
+
+    async function loadPayment(id) {
+        await axios.get('http://localhost:8080/api/payments/'+id
+        ).then(res=> {
+            setDescription(res.data.description);
+            setType(res.data.type);
+            setStat(res.data.status);
+            setMonth(res.data.month);
+            setYear(res.data.year);
+            setValue(res.data.value);
+
+            if (!hidden) {changeHidden()}
+        }).catch(err=> {
+            console.log(err.response.data)
+        })
+    }
 
     async function loadPayments() {
         await axios.get('http://localhost:8080/api/payments', {
@@ -32,14 +94,37 @@ export default function Finances() {
                 user: 10
             }
         }).then(res=> {
-            setPayments(res.data)
+            setPayments((res.data).reverse())
         }).catch(err=> {
             console.log(err.response.data)
         })
     }
 
-    const createActive = () => {
-        setCreate(!create)
+    const changeHidden = () => {
+        setHidden(!hidden)
+    }
+
+    const handleNew = () => {
+        if (!hidden) {
+            changeHidden()
+        }
+        setNewPayment(true)
+        clear()
+    }
+
+    const handleLoad = (id) => {
+        setId(id)
+        setNewPayment(false)
+        loadPayment(id)
+    }
+
+    const clear = () => {
+        setDescription("");
+        setType("");
+        setStat("");
+        setMonth("");
+        setYear("");
+        setValue("");
     }
 
     return (
@@ -47,7 +132,7 @@ export default function Finances() {
             <div className="search-panel">
                 <div className="search-panel-group">
                     <div className="panel-group button">
-                        <button className="button-span" onClick={createActive}><span>New</span></button>
+                        <button className="button-span" onClick={handleNew}><span>New</span></button>
                         <button className="button-span"><span>Search</span></button>
                     </div>
                 </div>
@@ -67,12 +152,12 @@ export default function Finances() {
             </div>
 
             <div className="finances-panel">
-                <div className={create ? "create-panel active" : "create-panel"}>
-                    <CardHidden new={create}
+                <div className={hidden ? "create-panel active" : "create-panel"}>
+                    <CardHidden new={newPayment} create={create} edit={edit} cancel={changeHidden}
                         type={type}
                         setType={setType}
-                        status={statuss}
-                        setStatus={setStatuss}
+                        status={stat}
+                        setStatus={setStat}
                         month={month}
                         setMonth={setMonth}
                         year={year}
@@ -83,10 +168,10 @@ export default function Finances() {
                         setValue={setValue}
                     ></CardHidden>
                 </div>
-                <div className={create ? "edit-panel active" : "edit-panel"}>
-                    {payments.map((payment) => {
+                <div className={hidden ? "edit-panel active" : "edit-panel"}>
+                    {payments.map((payment,i) => {
                         return (
-                            <Card key={payment.id} onClick={createActive}
+                            <Card key={i} onClick={() => handleLoad(payment.id)}
                                 type={payment.type}
                                 status={payment.status}
                                 month={payment.month}

@@ -19,10 +19,11 @@
     display: flex;
     width: 50px;
     color: #fff;
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 400;
     align-items: center;
     justify-content: center;
+    transition: .5s ease-in-out;
 }
 
 .card .card-column .action span {
@@ -102,11 +103,19 @@
     background-color : #2f89a0;
 }
 
-.card .card-column .action.save {
+.card .card-column .action.create {
+    background-color : #2f89a0;
+}
+
+.card .card-column .action.create:hover {
+    background-color : #194c58;
+}
+
+.card .card-column .action.edit {
     background-color : #42c079;
 }
 
-.card .card-column .action.save:hover {
+.card .card-column .action.edit:hover {
     background-color : #2e8353;
 }
 
@@ -116,6 +125,14 @@
 
 .card .card-column .action.cancel:hover {
     background-color : #8d3434;
+}
+
+.card .card-column .action.clear {
+    background-color : #ece95d;
+}
+
+.card .card-column .action.clear:hover {
+    background-color : #8d8c34;
 }
 
 @media (max-width: 570px) {

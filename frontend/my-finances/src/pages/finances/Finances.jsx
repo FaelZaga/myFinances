@@ -72,6 +72,15 @@ export default function Finances() {
         })
     }
 
+    async function remove(id) {
+        await axios.delete('http://localhost:8080/api/payments/'+id)
+        .then(res=> {
+            console.log("removed with success")
+        }).catch(err=> {
+            console.log(err.response.data)
+        })
+    }
+
     async function loadPayment(id) {
         await axios.get('http://localhost:8080/api/payments/'+id
         ).then(res=> {
@@ -171,7 +180,7 @@ export default function Finances() {
                 <div className={hidden ? "edit-panel active" : "edit-panel"}>
                     {payments.map((payment,i) => {
                         return (
-                            <Card key={i} onClick={() => handleLoad(payment.id)}
+                            <Card key={i} edit={() => handleLoad(payment.id)} delete={() => remove(payment.id)}
                                 type={payment.type}
                                 status={payment.status}
                                 month={payment.month}

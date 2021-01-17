@@ -6,7 +6,7 @@ import './Card.css'
 
 export default function Card(props) {
     return (
-        <div className="card"  onClick={props.onClick}>
+        <div className="card">
             <div className="card-column header">
                 {props.type === "EXPENSES" ? <div className="action expenses"><span>{props.type}</span></div>
                 : <div className="action income"><span>{props.type}</span></div>}
@@ -41,7 +41,10 @@ export default function Card(props) {
                     </div>
                 </div>
             </div>
-
+            <div className="card-column footer">
+                <button className="action delete" onClick={props.delete}><span>Delete</span></button>
+                <button className="action edit" onClick={props.edit}><span>Edit</span></button>
+            </div>
         </div>
     )
 }

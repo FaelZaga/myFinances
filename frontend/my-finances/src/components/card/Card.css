@@ -92,7 +92,7 @@
 }
 
 .card .card-column .action.new {
-    background-color : #5e5e5e;
+    background-color : #aaac65;
 }
 
 .card .card-column .action.edit,
@@ -105,24 +105,25 @@
     background-color : #2e8353;
 }
 
-.card .card-column .action.income,
-.card .card-column .action.edit {
+.card .card-column .action.income {
     background-color : #2f89a0;
 }
 
-.card .card-column .action.edit:hover {
-    background-color : #194c58;
-}
-
 .card .card-column .action.expenses,
-.card .card-column .action.delete,
 .card .card-column .action.cancel {
     background-color : #e94545;
 }
 
-.card .card-column .action.delete:hover,
 .card .card-column .action.cancel:hover {
     background-color : #8d3434;
+}
+
+.card .card-column .action.delete {
+    background-color : #4e4e4e;
+}
+
+.card .card-column .action.delete:hover {
+    background-color : #000000;
 }
 
 @media (max-width: 570px) {

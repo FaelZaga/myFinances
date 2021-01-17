@@ -72,10 +72,11 @@ export default function Finances() {
         })
     }
 
-    async function remove(id) {
+    async function remove() {
         await axios.delete('http://localhost:8080/api/payments/'+id)
         .then(res=> {
             console.log("removed with success")
+            setHidden(!hidden)
         }).catch(err=> {
             console.log(err.response.data)
         })
@@ -162,7 +163,7 @@ export default function Finances() {
 
             <div className="finances-panel">
                 <div className={hidden ? "create-panel active" : "create-panel"}>
-                    <CardHidden new={newPayment} create={create} edit={edit} cancel={changeHidden}
+                    <CardHidden new={newPayment} create={create} edit={edit} delete={remove} cancel={changeHidden}
                         type={type}
                         setType={setType}
                         status={stat}
@@ -180,7 +181,7 @@ export default function Finances() {
                 <div className={hidden ? "edit-panel active" : "edit-panel"}>
                     {payments.map((payment,i) => {
                         return (
-                            <Card key={i} edit={() => handleLoad(payment.id)} delete={() => remove(payment.id)}
+                            <Card key={i} onClick={() => handleLoad(payment.id)}
                                 type={payment.type}
                                 status={payment.status}
                                 month={payment.month}

@@ -66,7 +66,8 @@ export default function CardHidden(props) {
             <div className="card-column footer">
                 <button className="action cancel" onClick={props.cancel}><span>Cancel</span></button>
                 {props.new ? <button className="action create"  onClick={props.create}><span>Create</span></button>
-                : <button className="action edit"  onClick={props.edit}><span>Save</span></button>}
+                : <><button className="action delete"  onClick={props.delete}><span>Delete</span></button>
+                 <button className="action edit"  onClick={props.edit}><span>Save</span></button></>}
             </div>
         </div>
     )

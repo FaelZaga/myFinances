@@ -32,7 +32,7 @@ export default function Finances() {
 
     useEffect(() => {
         loadPayments()
-    })
+    },[hidden])
 
     async function create() {
         await axios.post('http://localhost:8080/api/payments', {

@@ -5,7 +5,6 @@ import { months, status, types } from '../selectMenu/SelectMenuData'
 import './Card.css'
 
 export default function CardHidden(props) {
-
     return (
         <div className="card">
             <div className="card-column header">

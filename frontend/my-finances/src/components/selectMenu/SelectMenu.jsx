@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -6,8 +6,6 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import './SelectMenu.css'
 
 export default function SelectMenu(props) {
-    const [value, setValue] = useState("");
-
     const options = props.options.map((option,i) => {
         return (
             <option key={i} value={option.value}>{option.label}</option>
@@ -16,10 +14,10 @@ export default function SelectMenu(props) {
 
     return (
         <div className="select-menu">
-            <select id="select" onChange={e => setValue(e.target.value)} value={value} {...props}>
+            <select id="select" onChange={e => props.setValue(e.target.value)} value={props.value} {...props}>
                 {options}
             </select>
-            {value === "" || props.noBtn ? null : <button className="btn-clean" onClick={() => setValue("")}><FontAwesomeIcon icon={faTimes} /></button>}
+            {props.value === "" ? null : <button className="btn-clean" onClick={() => props.setValue("")}><FontAwesomeIcon icon={faTimes} /></button>}
         </div>
     )
 }

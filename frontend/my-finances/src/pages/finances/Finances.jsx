@@ -14,6 +14,12 @@ export default function Finances() {
     const [hidden,setHidden] = useState(false);
     const [newMode,setNewMode] = useState(false);
 
+    const [descriptionSearch, setDescriptionSearch] = useState("");
+    const [yearSearch, setYearSearch] = useState("");
+    const [typeSearch, setTypeSearch] = useState("");
+    const [statusSearch, setStatusSearch] = useState("");
+    const [monthSearch, setMonthSearch] = useState("");
+
     const [id,setId] = useState("");
     const [description, setDescription] = useState("");
     const [type, setType] = useState("");
@@ -26,7 +32,7 @@ export default function Finances() {
 
     useEffect(() => {
         loadPayments()
-    }, [hidden])
+    })
 
     async function create() {
         await axios.post('http://localhost:8080/api/payments', {
@@ -101,6 +107,11 @@ export default function Finances() {
     async function loadPayments() {
         await axios.get('http://localhost:8080/api/payments', {
             params: {
+                description: descriptionSearch,
+                type: typeSearch,
+                status: statusSearch,
+                month: monthSearch,
+                year: yearSearch,
                 user: 10
             }
         }).then(res=> {
@@ -149,20 +160,44 @@ export default function Finances() {
                         : <button className="button-span" onClick={handleNew}><span>New</span></button>}
                     </div>
                 </div>
-                <div div className="search-panel-group">
+                <div className="search-panel-group">
                     <div className="panel-group description">
-                        <Input className="input-field first" type="text" placeholder="Description" autocomplete="off"/>   
+                        <Input className="input-field first"
+                            type="text"
+                            placeholder="Description"
+                            autoComplete="off"
+                            value={descriptionSearch}
+                            setValue={setDescriptionSearch}
+                        ></Input>
                     </div>
                     <div className="panel-group select">
-                        <SelectMenu className="select-field" options={months}/>
-                        <SelectMenu className="select-field" options={types}/>
-                        <SelectMenu className="select-field" options={status}/>
+                        <SelectMenu className="select-field type"
+                            options={types}
+                            value={typeSearch}
+                            setValue={setTypeSearch}
+                        ></SelectMenu>
+                        <SelectMenu className="select-field status"
+                            options={status}
+                            value={statusSearch}
+                            setValue={setStatusSearch}
+                        ></SelectMenu>
+                        <SelectMenu className="select-field month"
+                            options={months}
+                            value={monthSearch}
+                            setValue={setMonthSearch}
+                        ></SelectMenu>
                     </div>
                     <div className="panel-group year">
-                        <Input className="input-field last" type="number" placeholder="Year" autocomplete="off"/>
+                        <Input className="input-field last"
+                            type="number"
+                            placeholder="Year"
+                            autoComplete="off"
+                            value={yearSearch}
+                            setValue={setYearSearch}
+                        ></Input>
                     </div>
                     <div className="panel-group button">
-                        <button className="button-span"><span>Search</span></button>
+                        <button className="button-span" onClick={loadPayments}><span>Search</span></button>
                     </div>
                 </div>
             </div>

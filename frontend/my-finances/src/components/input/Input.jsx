@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -6,12 +6,10 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import './Input.css'
 
 export default function Input(props) {
-    const [value, setValue] = useState("");
-
     return (
         <div className="input">
-            <input id="input" {...props} onChange={e => setValue(e.target.value)} value={value}></input>
-            {value === "" ? null : <button className="btn-clean" onClick={() => setValue("")}><FontAwesomeIcon icon={faTimes} /></button>}
+            <input id="input" onChange={e => props.setValue(e.target.value)} value={props.value}  {...props}></input>
+            {props.value === "" ? null : <button className="btn-clean" onClick={() => props.setValue("")}><FontAwesomeIcon icon={faTimes} /></button>}
         </div>
     )
 }

@@ -143,12 +143,11 @@ export default function Finances() {
                 <div className="search-panel-group">
                     <div className="panel-group button">
                         <button className="button-span" onClick={handleNew}><span>New</span></button>
-                        <button className="button-span"><span>Search</span></button>
                     </div>
                 </div>
                 <div div className="search-panel-group">
                     <div className="panel-group description">
-                        <Input className="input-field first" type="text" placeholder="Description" />   
+                        <Input className="input-field first" type="text" placeholder="Description" autocomplete="off"/>   
                     </div>
                     <div className="panel-group select">
                         <SelectMenu className="select-field" options={months}/>
@@ -156,7 +155,10 @@ export default function Finances() {
                         <SelectMenu className="select-field" options={status}/>
                     </div>
                     <div className="panel-group year">
-                        <Input className="input-field last" type="number" placeholder="Year" />
+                        <Input className="input-field last" type="number" placeholder="Year" autocomplete="off"/>
+                    </div>
+                    <div className="panel-group button">
+                        <button className="button-span"><span>Search</span></button>
                     </div>
                 </div>
             </div>

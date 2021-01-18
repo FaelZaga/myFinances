@@ -4,42 +4,37 @@
 
 .search-panel {
     display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: #2f352f;
-    padding: .5rem 2rem .5rem 2rem;
+    justify-content: space-between;
 }
 
 .search-panel-group {
     display: flex;
-    flex-direction: row;
+    align-items: center;
 }
 
 .search-panel-group .panel-group {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
 }
 
 .search-panel .button-span {
     display: flex;
-    width: 50px;
-    height: 50px;
+    margin: 0 1rem;
+    width: 60px;
+    height: 30px;
     align-items: center;
     justify-content: center;
     background: none;
     border: none;
     color: #fff;
-    margin: 0 1rem;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 700;
     transition: .1s ease-in-out;
 }
 
 .search-panel .button-span:hover {
     font-size: 1.4rem;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .search-panel .button-span:focus {
@@ -50,16 +45,15 @@
 .search-panel .input-field {
     display: flex;
     background-color: #fff;
-    height: 30px;
-    margin-left: 1px;
+    height: 25px;
     border: none;
     font-size: 1rem;
     border-radius: initial;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
 }
 
 .search-panel .input-field.first{
-    width: 250px;
+    width: 300px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
 }
@@ -74,10 +68,9 @@
     color: #000;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input::-webkit-inner-spin-button, 
+input::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
 }
 
 .edit-panel {
@@ -108,36 +101,37 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 @media (max-width: 870px) {
+    .search-panel {
+        overflow: scroll;
+    }
+    
     .search-panel .button-span {
-        width: 40px;
-        height: 30px;
-        margin: 0 1rem 0 0;
         font-size: 1.1rem;
-        font-weight: 400;
+        font-weight: 500;
     }
 
     .search-panel .button-span:hover {
         font-size: 1.2rem;
-        font-weight: 400;
+        font-weight: 600;
     }
 
     .search-panel .select-field,
     .search-panel .input-field {
-        height: 20px;
-        font-size: 0.8rem;
-        padding: 0 1.5rem;
+        height: 25px;
+        font-size: 0.9rem;
+        padding: 0 0.5rem;
     }
 
     .search-panel .input-field.first{
         width: 100px;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
     }
 
     .search-panel .input-field.last {
-        width: 70px;
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
+        width: 55px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 }
 

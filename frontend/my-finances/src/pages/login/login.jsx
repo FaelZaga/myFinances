@@ -5,7 +5,7 @@ import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock, faSmile, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 
 import './Login.css'
 
@@ -13,7 +13,7 @@ import imgLog from '../../assets/log.svg'
 import imgReg from '../../assets/register.svg'
 
 function Login(props) {
-    let history = useHistory();
+    const history = useHistory();
     const [container,setContainer] = useState("container");
 
     const [loadTitle,setLoadTitle] = useState("");
@@ -25,18 +25,17 @@ function Login(props) {
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
 
-    const signin = () => {
+    async function signin() {
         setLogBtn(false);
         setRegBtn(false);
         setContainer("container loading-mode")
         setLoadTitle("Connecting...")
         setLoadMsg("wait a moment while we try to connect to your account")
-        axios.post('http://localhost:8080/api/users/auth', {
+        await axios.post('http://localhost:8080/api/users/auth', {
             email: email,
             password: password
         }).then(res=> {
-            history.push("/dashboard")
-            console.log(res)
+            history.push("/dashboard/"+res.data.id);
         }).catch(err=> {
             setLoadTitle("Something went wrong!")
             setLoadMsg(err.response.data)

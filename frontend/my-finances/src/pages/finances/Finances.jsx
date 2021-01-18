@@ -12,7 +12,7 @@ import './Finances.css'
 
 export default function Finances() {
     const [hidden,setHidden] = useState(false);
-    const [newPayment,setNewPayment] = useState(false);
+    const [newMode,setNewMode] = useState(false);
 
     const [id,setId] = useState("");
     const [description, setDescription] = useState("");
@@ -112,19 +112,22 @@ export default function Finances() {
 
     const changeHidden = () => {
         setHidden(!hidden)
+        if (hidden === true && newMode === true) {
+            setNewMode(false)
+        }
     }
 
     const handleNew = () => {
         if (!hidden) {
             changeHidden()
         }
-        setNewPayment(true)
+        setNewMode(true)
         clear()
     }
 
     const handleLoad = (id) => {
         setId(id)
-        setNewPayment(false)
+        setNewMode(false)
         loadPayment(id)
     }
 
@@ -142,7 +145,8 @@ export default function Finances() {
             <div className="search-panel">
                 <div className="search-panel-group">
                     <div className="panel-group button">
-                        <button className="button-span" onClick={handleNew}><span>New</span></button>
+                        {newMode ? <button className="button-span" onClick={changeHidden}><span>Close</span></button>
+                        : <button className="button-span" onClick={handleNew}><span>New</span></button>}
                     </div>
                 </div>
                 <div div className="search-panel-group">
@@ -165,7 +169,7 @@ export default function Finances() {
 
             <div className="finances-panel">
                 <div className={hidden ? "create-panel active" : "create-panel"}>
-                    <CardHidden new={newPayment} create={create} edit={edit} delete={remove} cancel={changeHidden}
+                    <CardHidden new={newMode} create={create} edit={edit} delete={remove} cancel={changeHidden}
                         type={type}
                         setType={setType}
                         status={stat}

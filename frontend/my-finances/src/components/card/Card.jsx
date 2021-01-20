@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { months } from '../../components/selectMenu/SelectMenuData'
+import { monthsList } from '../../components/selectMenu/SelectMenuData'
 
 import './Card.css'
 
@@ -20,7 +20,7 @@ export default function Card(props) {
                 </div>
                 <div className="detail-group">
                     <div className="detail month">
-                        {months.map((month,i) => {
+                        {monthsList.map((month,i) => {
                             return (month.value === props.month ? <input key={i} type="text" disabled value={month.label}/> : null)
                         })}
                         <span>Month</span>

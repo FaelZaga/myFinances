@@ -7,10 +7,10 @@ import { faUser, faLock, faSmile, faEnvelope } from '@fortawesome/free-solid-svg
 
 import { useHistory } from 'react-router-dom'
 
-import './Login.css'
-
 import imgLog from '../../assets/log.svg'
 import imgReg from '../../assets/register.svg'
+
+import './login.css'
 
 function Login(props) {
     const history = useHistory();
@@ -25,7 +25,7 @@ function Login(props) {
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
 
-    async function signin() {
+    const signin = async () => {
         setLogBtn(false);
         setRegBtn(false);
         setContainer("container loading-mode")
@@ -43,13 +43,13 @@ function Login(props) {
         })
     }
 
-    const signup = () => {
+    const signup = async () => {
         setLogBtn(false);
         setRegBtn(false);
         setContainer("container creating-mode")
         setLoadTitle("Creating...")
         setLoadMsg("wait a moment while we create your account")
-        axios.post('http://localhost:8080/api/users', {
+        await axios.post('http://localhost:8080/api/users', {
             name: name,
             email: email,
             password: password

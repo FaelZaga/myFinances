@@ -1,9 +1,9 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import Login from './pages/login/Login'
+import Login from './pages/login/login'
 import Dashboard from './pages/dashboard/Dashboard'
-import Finances from './pages/finances/Finances'
+import Finances from './pages/finances/finances'
 import Profile from './pages/profile/Profile'
 
 export default function Routes() {

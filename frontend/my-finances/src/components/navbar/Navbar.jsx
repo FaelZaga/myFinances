@@ -34,13 +34,13 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li className="nav-item" onClick={showSidebar}>
-                        <Link className="btn-item" to="/profile">
+                        <Link className="btn-item" to="/profile/">
                             <i><FontAwesomeIcon icon={faUserAlt}/></i>
                             <span>Profile</span>
                         </Link>
                     </li>
                     <li className="nav-item" onClick={showSidebar}>
-                        <Link className="btn-item" to="/login">
+                        <Link className="btn-item" to="/">
                             <i><FontAwesomeIcon icon={faSadTear}/></i>
                             <span>Logout</span>
                         </Link>

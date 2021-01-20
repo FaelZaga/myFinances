@@ -1,152 +1,66 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import axios from 'axios'
+import { getFinances, changeVisible } from './financesActions'
+import { getPayment, reset } from '../../components/card/cardActions'
 
 import Navbar from '../../components/navbar/Navbar'
-import SelectMenu from '../../components/selectMenu/SelectMenu'
-import Input from '../../components/input/Input'
+import SelectMenu from '../../components/selectMenu/select'
+import Input from '../../components/input/input'
 import Card from '../../components/card/Card'
 import CardHidden from '../../components/card/CardHidden'
-import { months, types, status } from '../../components/selectMenu/SelectMenuData'
+import { monthsList, typesList, statusList } from '../../components/selectMenu/SelectMenuData'
 
-import { useParams } from 'react-router-dom'
+import './finances.css'
 
-import './Finances.css'
+function Finances(props) {
+    const finances = props.list
+    const visible = props.visible
+    const [newMode,setNewMode] = useState(false)
 
-export default function Finances() {
-    const {useId} = useParams();
-    const [hidden,setHidden] = useState(false);
-    const [newMode,setNewMode] = useState(false);
-
-    const [descriptionSearch, setDescriptionSearch] = useState("");
-    const [yearSearch, setYearSearch] = useState("");
-    const [typeSearch, setTypeSearch] = useState("");
-    const [statusSearch, setStatusSearch] = useState("");
-    const [monthSearch, setMonthSearch] = useState("");
-
-    const [id,setId] = useState("");
-    const [description, setDescription] = useState("");
-    const [type, setType] = useState("");
-    const [stat, setStat] = useState("");
-    const [month, setMonth] = useState("");
-    const [year, setYear] = useState("");
-    const [value, setValue] = useState("");
-
-    const [payments,setPayments] = useState([]);
+    const [descriptionSearch, setDescriptionSearch] = useState("")
+    const [yearSearch, setYearSearch] = useState("")
+    const [typeSearch, setTypeSearch] = useState("")
+    const [statusSearch, setStatusSearch] = useState("")
+    const [monthSearch, setMonthSearch] = useState("")
 
     useEffect(() => {
-        loadPayments()
-    },[hidden])
+        search()
+    },[props.list])
 
-    async function create() {
-        await axios.post('http://localhost:8080/api/payments', {
-            "description": description,
-            "month": month,
-            "year": year,
-            "value": value,
-            "type": type,
-            "status": stat,
-            "user": {
-                "id": useId
-            }
-        }).then(res=> {
-            console.log("saved with success")
-            changeHidden()
-        }).catch(err=> {
-            console.log(err.response.data)
+    const search = () => {
+        props.getFinances({
+            "description": descriptionSearch,
+            "type": typeSearch,
+            "status": statusSearch,
+            "month": monthSearch,
+            "year": yearSearch,
+            "user": 11
         })
     }
 
-    async function edit() {
-        await axios.put('http://localhost:8080/api/payments/'+id, {
-            "description": description,
-            "month": month,
-            "year": year,
-            "value": value,
-            "type": type,
-            "status": stat,
-            "user": {
-                "id": useId
-            }
-        }).then(res=> {
-            console.log("edited with success")
-            changeHidden()
-        }).catch(err=> {
-            console.log(err.response.data)
-        })
-    }
-
-    async function remove() {
-        await axios.delete('http://localhost:8080/api/payments/'+id)
-        .then(res=> {
-            console.log("removed with success")
-            changeHidden()
-        }).catch(err=> {
-            console.log(err.response.data)
-        })
-    }
-
-    async function loadPayment(id) {
-        await axios.get('http://localhost:8080/api/payments/'+id
-        ).then(res=> {
-            setDescription(res.data.description);
-            setType(res.data.type);
-            setStat(res.data.status);
-            setMonth(res.data.month);
-            setYear(res.data.year);
-            setValue(res.data.value);
-
-            if (!hidden) {changeHidden()}
-        }).catch(err=> {
-            console.log(err.response.data)
-        })
-    }
-
-    async function loadPayments() {
-        await axios.get('http://localhost:8080/api/payments', {
-            params: {
-                description: descriptionSearch,
-                type: typeSearch,
-                status: statusSearch,
-                month: monthSearch,
-                year: yearSearch,
-                user: useId
-            }
-        }).then(res=> {
-            setPayments((res.data).reverse())
-        }).catch(err=> {
-            console.log(err.response.data)
-        })
-    }
-
-    const changeHidden = () => {
-        setHidden(!hidden)
-        if (hidden === true && newMode === true) {
+    const changeVisible = () => {
+        props.changeVisible()
+        if (visible === true && newMode === true) {
             setNewMode(false)
         }
     }
 
     const handleNew = () => {
-        if (!hidden) {
-            changeHidden()
+        props.reset()
+        if (!visible) {
+            changeVisible()
         }
         setNewMode(true)
-        clear()
     }
 
     const handleLoad = (id) => {
-        setId(id)
+        if (!visible) {
+            changeVisible()
+        }
         setNewMode(false)
-        loadPayment(id)
-    }
-
-    const clear = () => {
-        setDescription("");
-        setType("");
-        setStat("");
-        setMonth("");
-        setYear("");
-        setValue("");
+        props.getPayment(id)
     }
 
     return (
@@ -156,7 +70,7 @@ export default function Finances() {
                 <div className="search-panel">
                     <div className="search-panel-group">
                         <div className="panel-group button">
-                            {newMode ? <button className="button-span" onClick={changeHidden}><span>Close</span></button>
+                            {newMode ? <button className="button-span" onClick={changeVisible}><span>Close</span></button>
                             : <button className="button-span" onClick={handleNew}><span>New</span></button>}
                         </div>
                     </div>
@@ -167,24 +81,28 @@ export default function Finances() {
                                 placeholder="Description"
                                 autoComplete="off"
                                 value={descriptionSearch}
-                                setValue={setDescriptionSearch}
+                                onChange={e => setDescriptionSearch(e.target.value)}
+                                onClick={() => setDescriptionSearch("")}
                             ></Input>
                         </div>
                         <div className="panel-group select">
                             <SelectMenu className="select-field type"
-                                options={types}
+                                options={typesList}
                                 value={typeSearch}
-                                setValue={setTypeSearch}
+                                onChange={e => setTypeSearch(e.target.value)}
+                                onClick={() => setTypeSearch("")}
                             ></SelectMenu>
                             <SelectMenu className="select-field status"
-                                options={status}
+                                options={statusList}
                                 value={statusSearch}
-                                setValue={setStatusSearch}
+                                onChange={e => setStatusSearch(e.target.value)}
+                                onClick={() => setStatusSearch("")}
                             ></SelectMenu>
                             <SelectMenu className="select-field month"
-                                options={months}
+                                options={monthsList}
                                 value={monthSearch}
-                                setValue={setMonthSearch}
+                                onChange={e => setMonthSearch(e.target.value)}
+                                onClick={() => setMonthSearch("")}
                             ></SelectMenu>
                         </div>
                         <div className="panel-group year">
@@ -193,34 +111,23 @@ export default function Finances() {
                                 placeholder="Year"
                                 autoComplete="off"
                                 value={yearSearch}
-                                setValue={setYearSearch}
+                                onChange={e => setYearSearch(e.target.value)}
+                                onClick={() => setYearSearch("")}
                             ></Input>
                         </div>
                         <div className="panel-group button">
-                            <button className="button-span" onClick={loadPayments}><span>Search</span></button>
+                            <button className="button-span" onClick={search}><span>Search</span></button>
                         </div>
                     </div>
                 </div>
 
                 <div className="finances-panel">
-                    <div className={hidden ? "create-panel active" : "create-panel"}>
-                        <CardHidden new={newMode} create={create} edit={edit} delete={remove} cancel={changeHidden}
-                            type={type}
-                            setType={setType}
-                            status={stat}
-                            setStatus={setStat}
-                            month={month}
-                            setMonth={setMonth}
-                            year={year}
-                            setYear={setYear}
-                            description={description}
-                            setDescription={setDescription}
-                            value={value}
-                            setValue={setValue}
+                    <div className={visible ? "create-panel active" : "create-panel"}>
+                        <CardHidden new={newMode} cancel={changeVisible}
                         ></CardHidden>
                     </div>
-                    <div className={hidden ? "edit-panel active" : "edit-panel"}>
-                        {payments.map((payment,i) => {
+                    <div className={visible ? "edit-panel active" : "edit-panel"}>
+                        {finances.map((payment,i) => {
                             return (
                                 <Card key={i} onClick={() => handleLoad(payment.id)}
                                     type={payment.type}
@@ -238,3 +145,12 @@ export default function Finances() {
         </>
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        list: state.finances.list,
+        visible: state.finances.visible
+    }
+}
+const mapDispatchToProps = dispatch => bindActionCreators({getFinances, getPayment, changeVisible, reset},dispatch)
+export default connect(mapStateToProps,mapDispatchToProps)(Finances)

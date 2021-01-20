@@ -1,4 +1,4 @@
-export const months = [
+export const monthsList = [
     { label: 'Month', value: '' },
     { label: 'January', value: 1 },
     { label: 'Februery', value: 2 },
@@ -13,12 +13,12 @@ export const months = [
     { label: 'November', value: 11 },
     { label: 'December', value: 12 }
 ]
-export const types = [
+export const typesList = [
     { label: 'Type', value: '' },
     { label: 'Income', value: "INCOME" },
     { label: 'Expenses', value: "EXPENSES" },
 ]
-export const status = [
+export const statusList = [
     { label: 'Status', value: '' },
     { label: 'Pending', value: "PENDING" },
     { label: 'Canceled', value: "CANCELED" },

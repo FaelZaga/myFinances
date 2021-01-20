@@ -1,22 +1,81 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import { months, status, types } from '../selectMenu/SelectMenuData'
+import { getPayment, createPayment, updatePayment, deletePayment } from './cardActions'
+
+import { monthsList, statusList, typesList } from '../selectMenu/SelectMenuData'
 
 import './Card.css'
 
-export default function CardHidden(props) {
+function CardHidden(props) {
+    const {id, description, type, status, month, year, value} = props.payment
+
+    const [descriptionInput, setDescription] = useState("")
+    const [typeSelect, setType] = useState("")
+    const [statusSelect, setStatus] = useState("")
+    const [monthSelect, setMonth] = useState("")
+    const [yearInput, setYear] = useState("")
+    const [valueInput, setValue] = useState("")
+
+    useEffect(() => {
+        fillField()
+    }, [props.payment])
+
+    const create = () => {
+        createPayment({
+            "description": descriptionInput,
+            "month": monthSelect,
+            "year": yearInput,
+            "value": valueInput,
+            "type": typeSelect,
+            "status": statusSelect,
+            "user": {
+                "id": 11
+            }
+        })
+    }
+
+    const edit = () => {
+        updatePayment({
+            "id":id,
+            "description": descriptionInput,
+            "month": monthSelect,
+            "year": yearInput,
+            "value": valueInput,
+            "type": typeSelect,
+            "status": statusSelect,
+            "user": {
+                "id": 11
+            }
+        })
+    }
+
+    const remove = () => {
+        deletePayment(id)
+    }
+
+    const fillField = () => {
+        setDescription(description)
+        setType(type)
+        setStatus(status)
+        setMonth(month)
+        setYear(year)
+        setValue(value)
+    }
+
     return (
         <div className="card">
             <div className="card-column header">
-                {props.type ==="" ? <div className="action new"><span>NEW</span></div>
-                : props.type === "EXPENSES" ? <div className="action expenses"><span>{props.type}</span></div>
-                : <div className="action income"><span>{props.type}</span></div>}
+                {type === undefined ? <div className="action new"><span>NEW</span></div>
+                : type === "EXPENSES" ? <div className="action expenses"><span>{type}</span></div>
+                : <div className="action income"><span>{type}</span></div>}
             </div>
             <div className="card-column details">
                 <div className="detail-group">
                     <div className="detail type">
-                        <select value={props.type} onChange={e => props.setType(e.target.value)}>
-                            {types.map((type,i) => {
+                        <select value={typeSelect || ""} onChange={e => setType(e.target.value)}>
+                            {typesList.map((type,i) => {
                                 return (
                                     <option key={i} value={type.value}>{type.label}</option>
                                 )
@@ -25,14 +84,14 @@ export default function CardHidden(props) {
                         <span>Type</span>
                     </div>
                     <div className="detail description">
-                        <input type="text" placeholder="Description" value={props.description} onChange={e => props.setDescription(e.target.value)}/>
+                        <input type="text" placeholder="Description" value={descriptionInput || ""} onChange={e => setDescription(e.target.value)}/>
                         <span>Description</span>
                     </div>
                 </div>
                 <div className="detail-group">
                     <div className="detail month">
-                        <select value={props.month} onChange={e => props.setMonth(e.target.value)}>
-                            {months.map((month,i) => {
+                        <select value={monthSelect || ""} onChange={e => setMonth(e.target.value)}>
+                            {monthsList.map((month,i) => {
                                 return (
                                     <option key={i} value={month.value}>{month.label}</option>
                                 )
@@ -41,14 +100,14 @@ export default function CardHidden(props) {
                         <span>Month</span>
                     </div>
                     <div className="detail year">
-                        <input type="number" placeholder="Year" value={props.year} onChange={e => props.setYear(e.target.value)}/>
+                        <input type="number" placeholder="Year" value={yearInput || ""} onChange={e => setYear(e.target.value)}/>
                         <span>Year</span>
                     </div>
                 </div>
                 <div className="detail-group">
                     <div className="detail status">
-                        <select value={props.status} onChange={e => props.setStatus(e.target.value)}>
-                            {status.map((stat,i) => {
+                        <select value={statusSelect || ""} onChange={e => setStatus(e.target.value)}>
+                            {statusList.map((stat,i) => {
                                 return (
                                     <option key={i} value={stat.value}>{stat.label}</option>
                                 )
@@ -57,17 +116,22 @@ export default function CardHidden(props) {
                         <span>Status</span>
                     </div>
                     <div className="detail value">
-                        <input type="number" placeholder="Value" value={props.value} onChange={e => props.setValue(e.target.value)}/>
+                        <input type="number" placeholder="Value" value={valueInput || ""} onChange={e => setValue(e.target.value)}/>
                         <span>Value</span>
                     </div>
                 </div>
             </div>
             <div className="card-column footer">
                 <button className="action cancel" onClick={props.cancel}><span>Cancel</span></button>
-                {props.new ? <button className="action create"  onClick={props.create}><span>Create</span></button>
-                : <><button className="action delete"  onClick={props.delete}><span>Delete</span></button>
-                 <button className="action edit"  onClick={props.edit}><span>Save</span></button></>}
+                {props.new ? <button className="action create"  onClick={create}><span>Create</span></button>
+                : <><button className="action delete"  onClick={remove}><span>Delete</span></button>
+                 <button className="action edit"  onClick={edit}><span>Save</span></button></>}
             </div>
         </div>
     )
 }
+
+const mapStateToProps = state => ({payment: state.cardHidden.payment})
+const mapDispatchToProps = dispatch => bindActionCreators({
+    getPayment,createPayment,updatePayment,deletePayment},dispatch)
+export default connect(mapStateToProps,mapDispatchToProps)(CardHidden)

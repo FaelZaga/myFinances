@@ -1,22 +1,22 @@
-.select-menu {
+.select-content {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
 
-.select-menu #select {
+.select-content #select {
     flex: 1;
     padding-right: 25px;
     -webkit-appearance: none;
     outline: none;
 }
 
-.select-menu #select option:first-child {
+.select-content #select option:first-child {
     display: none;
 }
 
-.select-menu .btn-clean {
+.select-content .btn-clean {
     display: flex;
     position: absolute;
     background: none;
@@ -27,6 +27,6 @@
     padding: 5px;
 }
 
-.select-menu .btn-clean:focus {
+.select-content .btn-clean:focus {
     outline: none;
 }

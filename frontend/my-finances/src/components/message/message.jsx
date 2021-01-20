@@ -24,7 +24,7 @@ class Message extends Component {
     render() {
         const { visible, title, msg, error } = this.props.message
         return (
-            <div className={ visible ? "message-content" : "message-content actived"}
+            <div className={ visible ? "message-content active" : "message-content"}
             style = {error? { backgroundColor: "#e94545"} : { backgroundColor: "#42c079"} }
             >
                 <div className="message-header">

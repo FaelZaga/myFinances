@@ -17,7 +17,7 @@ export default function Routes() {
                 <Route path='/finances' component={Finances} />
                 <Route path='/profile' component={Profile} />
             </Switch>
-            <Redirect from='*' to='#'/>
+            <Redirect from='*' to='/'/>
             <Message/>
         </Router>
     )

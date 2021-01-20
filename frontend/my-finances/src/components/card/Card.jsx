@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { monthsList } from '../../components/selectMenu/SelectMenuData'
+import { monthsList } from '../selectMenu/SelectMenuData'
 
-import './Card.css'
+import './card.css'
 
 export default function Card(props) {
     return (

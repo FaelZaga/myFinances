@@ -1,0 +1,36 @@
+.message-content.actived {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 20px;
+    right: 80px;
+    width: 350px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    transition: .8s ease-in-out;
+    opacity: 0;
+}
+
+.message-header span {
+    font-size: 2rem;
+}
+
+.message-body span {
+    font-size: 1.2rem;
+}
+
+.message-content {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 350px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    opacity: 1;
+}

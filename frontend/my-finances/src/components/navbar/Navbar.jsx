@@ -24,25 +24,25 @@ function Navbar(props) {
             </div>
             <nav className={sidebar ? 'nav-menu active' : 'nav-menu'} onMouseLeave={showSidebar}>
                 <ul className='nav-menu-items'>
-                    <li className="nav-item" onClick={showSidebar}>
+                    <li className="nav-item">
                         <Link className="btn-item" to="/dashboard">
                             <i><FontAwesomeIcon icon={faChartLine}/></i>
                             <span>Dashboard</span>
                         </Link>
                     </li>
-                    <li className="nav-item" onClick={showSidebar}>
+                    <li className="nav-item">
                         <Link className="btn-item" to="/finances">
                             <i><FontAwesomeIcon icon={faPiggyBank}/></i>
                             <span>Finances</span>
                         </Link>
                     </li>
-                    <li className="nav-item" onClick={showSidebar}>
+                    <li className="nav-item">
                         <Link className="btn-item" to="/profile">
                             <i><FontAwesomeIcon icon={faUserAlt}/></i>
                             <span>Profile</span>
                         </Link>
                     </li>
-                    <li className="nav-item" onClick={showSidebar}>
+                    <li className="nav-item">
                         <Link className="btn-item" onClick={props.logout} to="/">
                             <i><FontAwesomeIcon icon={faSadTear}/></i>
                             <span>Logout</span>

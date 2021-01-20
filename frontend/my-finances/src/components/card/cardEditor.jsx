@@ -6,10 +6,11 @@ import { getPayment, createPayment, updatePayment, deletePayment } from './cardA
 
 import { monthsList, statusList, typesList } from '../selectMenu/SelectMenuData'
 
-import './Card.css'
+import './card.css'
 
-function CardHidden(props) {
-    const {id, description, type, status, month, year, value} = props.payment
+function CardEditor(props) {
+    const { id: paymentId, description, type, status, month, year, value } = props.payment
+    const { id: userId } = props.user
 
     const [descriptionInput, setDescription] = useState("")
     const [typeSelect, setType] = useState("")
@@ -24,7 +25,7 @@ function CardHidden(props) {
     }, [props.payment])
 
     const create = () => {
-        createPayment({
+        props.createPayment({
             "description": descriptionInput,
             "month": monthSelect,
             "year": yearInput,
@@ -32,14 +33,14 @@ function CardHidden(props) {
             "type": typeSelect,
             "status": statusSelect,
             "user": {
-                "id": 11
+                "id": userId
             }
         })
     }
 
     const edit = () => {
-        updatePayment({
-            "id":id,
+        props.updatePayment({
+            "id":paymentId,
             "description": descriptionInput,
             "month": monthSelect,
             "year": yearInput,
@@ -47,13 +48,13 @@ function CardHidden(props) {
             "type": typeSelect,
             "status": statusSelect,
             "user": {
-                "id": 11
+                "id": userId
             }
         })
     }
 
     const remove = () => {
-        deletePayment(id)
+        props.deletePayment(paymentId)
     }
 
     const fillField = () => {
@@ -124,15 +125,20 @@ function CardHidden(props) {
             </div>
             <div className="card-column footer">
                 <button className="action cancel" onClick={props.cancel}><span>Cancel</span></button>
-                {props.new ? <button className="action create"  onClick={create}><span>Create</span></button>
-                : <><button className="action delete"  onClick={remove}><span>Delete</span></button>
-                 <button className="action edit"  onClick={edit}><span>Save</span></button></>}
+                {props.mode ? <button className="action create" onClick={create}><span>Create</span></button>
+                : <><button className="action delete" onClick={remove}><span>Delete</span></button>
+                 <button className="action edit" onClick={edit}><span>Save</span></button></>}
             </div>
         </div>
     )
 }
 
-const mapStateToProps = state => ({payment: state.cardHidden.payment})
+const mapStateToProps = state => {
+    return {
+        user: state.auth.user,
+        payment: state.card.payment
+    }
+}
 const mapDispatchToProps = dispatch => bindActionCreators({
     getPayment,createPayment,updatePayment,deletePayment},dispatch)
-export default connect(mapStateToProps,mapDispatchToProps)(CardHidden)
+export default connect(mapStateToProps,mapDispatchToProps)(CardEditor)

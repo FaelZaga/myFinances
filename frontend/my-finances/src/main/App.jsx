@@ -5,11 +5,13 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Login from '../pages/login/login'
 import Routes from './routes'
 
+import './app.css'
+
 function App(props) {
   const { user } = props.auth
   if (user) {
     return (
-      <div className="App" style={{ maxHeight : "100vh"}}>
+      <div className="App">
         <Routes />
       </div>
     );

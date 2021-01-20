@@ -8,9 +8,3 @@ export function getFinances(values) {
         payload: request
     }
 }
-
-export function changeVisible() {
-    return {
-        type: 'CHANGE_VISIBLE'
-    }
-}

@@ -6,6 +6,7 @@ import Finances from '../pages/finances/finances'
 import Profile from '../pages/profile/profile'
 
 import Navbar from '../components/navbar/Navbar'
+import Message from '../components/message/message'
 
 export default function Routes() {
     return (
@@ -16,7 +17,8 @@ export default function Routes() {
                 <Route path='/finances' component={Finances} />
                 <Route path='/profile' component={Profile} />
             </Switch>
-            <Redirect from='*' to='/'/>
+            <Redirect from='*' to='#'/>
+            <Message/>
         </Router>
     )
 }

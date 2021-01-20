@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { getFinances, changeVisible } from './financesActions'
-import { getPayment, reset } from '../../components/card/cardActions'
+import { getFinances } from './financesActions'
+import { getPayment, changeVisible, changeMode, cleanPayment } from '../../components/card/cardActions'
 
 import SelectMenu from '../../components/selectMenu/select'
 import Input from '../../components/input/input'
-import Card from '../../components/card/Card'
-import CardHidden from '../../components/card/CardHidden'
+import Card from '../../components/card/card'
+import CardEditor from '../../components/card/cardEditor'
 import { monthsList, typesList, statusList } from '../../components/selectMenu/SelectMenuData'
 
 import './finances.css'
@@ -16,7 +16,8 @@ import './finances.css'
 function Finances(props) {
     const finances = props.list
     const visible = props.visible
-    const [newMode,setNewMode] = useState(false)
+    const createMode = props.createMode
+    const { id } = props.user
 
     const [descriptionSearch, setDescriptionSearch] = useState("")
     const [yearSearch, setYearSearch] = useState("")
@@ -36,31 +37,33 @@ function Finances(props) {
             "status": statusSearch,
             "month": monthSearch,
             "year": yearSearch,
-            "user": 11
+            "user": id
         })
     }
 
-    const changeVisible = () => {
-        props.changeVisible()
-        if (visible === true && newMode === true) {
-            setNewMode(false)
-        }
-    }
-
-    const handleNew = () => {
-        props.reset()
-        if (!visible) {
-            changeVisible()
-        }
-        setNewMode(true)
-    }
-
     const handleLoad = (id) => {
-        if (!visible) {
-            changeVisible()
-        }
-        setNewMode(false)
+        isOpen()
+        isCreate()
         props.getPayment(id)
+    }
+
+    const handleCreate = () => {
+        isOpen()
+        props.cleanPayment()
+        props.changeMode()
+    }
+
+    const handleClose = () => {
+        isCreate()
+        props.changeVisible()
+    }
+
+    const isOpen = () => {
+        if (!visible) { props.changeVisible() }
+    }
+
+    const isCreate = () => {
+        if (createMode) { props.changeMode() }
     }
 
     return (
@@ -68,8 +71,8 @@ function Finances(props) {
             <div className="search-panel">
                 <div className="search-panel-group">
                     <div className="panel-group button">
-                        {newMode ? <button className="button-span" onClick={changeVisible}><span>Close</span></button>
-                        : <button className="button-span" onClick={handleNew}><span>New</span></button>}
+                        {createMode ? <button className="button-span" onClick={handleClose}><span>Close</span></button>
+                        : <button className="button-span" onClick={handleCreate}><span>New</span></button>}
                     </div>
                 </div>
                 <div className="search-panel-group">
@@ -121,8 +124,7 @@ function Finances(props) {
 
             <div className="finances-panel">
                 <div className={visible ? "create-panel active" : "create-panel"}>
-                    <CardHidden new={newMode} cancel={changeVisible}
-                    ></CardHidden>
+                    <CardEditor mode={createMode} cancel={handleClose}/>
                 </div>
                 <div className={visible ? "edit-panel active" : "edit-panel"}>
                     {finances.map((payment,i) => {
@@ -145,9 +147,11 @@ function Finances(props) {
 
 const mapStateToProps = state => {
     return {
+        user: state.auth.user,
         list: state.finances.list,
-        visible: state.finances.visible
+        visible: state.card.visible,
+        createMode: state.card.createMode
     }
 }
-const mapDispatchToProps = dispatch => bindActionCreators({getFinances, getPayment, changeVisible, reset},dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({getFinances, getPayment, changeVisible, changeMode, cleanPayment},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(Finances)

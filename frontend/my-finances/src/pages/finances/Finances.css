@@ -79,23 +79,21 @@ input::-webkit-outer-spin-button {
 }
 
 .finances-panel .create-panel {
-    opacity: 0;  
-    transition: .4s;
+    opacity: 0;
 }
 
 .finances-panel .create-panel.active {
     opacity: 1;
-    transition: .4s .4s ease-in-out;
+    transition: .3s .3s ease-in-out;
 }
 
 .finances-panel .edit-panel {
     transform: translateY(-200px);
-    transition: .4s .4s ease-in-out;
+    transition: .3s ease-in-out;
 }
 
 .finances-panel .edit-panel.active {
     transform: translateY(0);
-    transition: .4s;
     filter: blur(0.5px);
     height: 46vh;
 }

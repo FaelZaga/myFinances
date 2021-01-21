@@ -1,10 +1,15 @@
 .navbar {
     display: flex;
     align-items: center;
-    justify-content: left;
+    justify-content: space-between;
     width: 100%;
     background-color:#2fb441;
     padding: 1rem 3rem;
+}
+
+.navbar .navbar-group {
+    display: flex;
+    flex-direction: row;
 }
 
 .navbar h1 {
@@ -32,6 +37,66 @@
     outline: none;
 }
 
+.profile-dropdown {
+    display: none;
+}
+
+.profile-dropdown.active {
+    display: flex;
+    position: fixed;
+    top: 80px;
+    right: 5px;
+    background-color: #313131;
+    border: solid 1px #000;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.dropdown-content {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.dropdown-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    color: #fff;;
+    margin: 5px;
+}
+
+.dropdown-header i {
+    font-size: 60px;
+}
+
+.dropdown-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.dropdown-footer button {
+    width: 80px;
+    height: 30px;
+    background-color:  #252525;
+    border: none;
+    color: #fff;
+    margin: 10px;
+}
+
+.dropdown-footer button:hover {
+    background-color:  #161616;
+}
+
+.dropdown-footer button:focus {
+    outline: none;
+}
+
 .nav-menu {
     background-color: #007728;
     width: 280px;
@@ -40,13 +105,13 @@
     display: flex;
     position: fixed;
     left: -100%;
-    transition: 1.2s ease-in-out;
+    transition: .4s ease-in-out;
     z-index: 1;
 }
 
 .nav-menu.active {
     left: -5px;
-    transition: .4s ease-in-out;
+    transition: .2s ease-in-out;
 }
 
 .nav-item {
@@ -60,8 +125,8 @@
     width: 280px;
     padding: 1.2rem 1.5rem 1.2rem 3rem;
     color: #fff;
-    font-size: 2rem;
-    font-weight: 500;
+    font-size: 1.4rem;
+    font-weight: 700;
     transition: .1s ease-in-out;
 }
 

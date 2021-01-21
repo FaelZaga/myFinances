@@ -127,7 +127,7 @@ function Finances(props) {
                     <CardEditor mode={createMode} cancel={handleClose}/>
                 </div>
                 <div className={visible ? "edit-panel active" : "edit-panel"}>
-                    {finances.map((payment,i) => {
+                    {finances.reverse().map((payment,i) => {
                         return (
                             <Card key={i} onClick={() => handleLoad(payment.id)}
                                 type={payment.type}

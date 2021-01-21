@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import './warning.css'
-
 class Warning extends Component { 
     render() {
         const { title, msg, btnVisible } = this.props.warning

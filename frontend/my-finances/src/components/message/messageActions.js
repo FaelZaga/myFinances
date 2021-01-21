@@ -5,7 +5,7 @@ export function setMessage(values) {
     }
 }
 
-export function setMessageReset() {
+export function messageReset() {
     return {
         type: 'MESSAGE_RESET'
     }

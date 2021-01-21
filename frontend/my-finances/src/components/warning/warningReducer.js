@@ -1,16 +1,16 @@
-const INITIAL_STATE = { visible: false, title: "", msg: "", error: false }
+const INITIAL_STATE = { title: "", msg: "", signUp: false, btnVisible: false }
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case 'MESSAGE_COMPLETED':
+        case 'WARNING_COMPLETED':
             return { ...state,
-                visible: action.payload.visible,
                 title: action.payload.title,
                 msg: action.payload.msg,
-                error: action.payload.error
+                signUp: action.payload.signUp,
+                btnVisible: action.payload.btnVisible
             }
-        case 'MESSAGE_RESET':
+        case 'WARNING_RESET':
             return INITIAL_STATE
         default:
             return state

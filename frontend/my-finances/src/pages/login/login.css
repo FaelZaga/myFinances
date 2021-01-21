@@ -52,7 +52,8 @@ body, input {
     transition: 1.2s 0.9s ease-in-out;
 }
 
-form {
+.signup-form,
+.signin-form {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,11 +65,11 @@ form {
     transition: 0.2s 1s ease-in-out;
 }
 
-form.signin-form {
+.signin-form {
     z-index: 2;
 }
 
-form.signup-form {
+.signup-form {
     z-index: 1;
     opacity: 0;
 }
@@ -257,12 +258,12 @@ form.signup-form {
     left: 25%;
 }
 
-.container.sign-up-mode form.signin-form {
+.container.sign-up-mode .signin-form {
     z-index: 1;
     opacity: 0;
 }
 
-.container.sign-up-mode form.signup-form {
+.container.sign-up-mode .signup-form {
     z-index: 2;
     opacity: 1;
 }
@@ -364,7 +365,8 @@ form.signup-form {
     }
     
     @media (max-width: 570px) {
-        form {
+        .signin-form,
+        .signup-form {
             padding: 0 1.5rem;
         }
 

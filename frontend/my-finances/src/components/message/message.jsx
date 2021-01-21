@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { setMessageReset } from './messageActions'
+import { messageReset } from './messageActions'
 
 import './message.css'
 
@@ -39,5 +39,5 @@ class Message extends Component {
 }
 
 const mapStateToProps = state => ({ message: state.message })
-const mapDispatchToProps = dispatch => bindActionCreators({ setMessageReset },dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ setMessageReset: messageReset },dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(Message)

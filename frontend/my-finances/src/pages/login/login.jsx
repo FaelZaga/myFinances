@@ -2,12 +2,13 @@ import React, { useState } from "react"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import axios from 'axios'
-
 import { signin, signup } from '../../auth/authActions'
+import { setWarning } from '../../components/warning/warningActions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock, faSmile, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+
+import Warning from '../../components/warning/warning'
 
 import imgLog from '../../assets/log.svg'
 import imgReg from '../../assets/register.svg'
@@ -16,44 +17,22 @@ import './login.css'
 
 function Login(props) {
     const [container,setContainer] = useState("container");
-
-    const [loadTitle,setLoadTitle] = useState("");
-    const [loadMsg,setLoadMsg] = useState("");
-    const [logBtn,setLogBtn] = useState(false);
-    const [regBtn,setRegBtn] = useState(false);
+    const signUp = props.signUp
 
     const [name,setName] = useState("");
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
 
     const signin = async () => {
-        setLogBtn(false);
-        setRegBtn(false);
         setContainer("container loading-mode")
-        setLoadTitle("Connecting...")
-        setLoadMsg("wait a moment while we try to connect to your account")
+        props.setWarning({ title: "Connecting...", msg: "wait a moment while we try to connect to your account"})
         props.signin({ "email": email, "password": password })
     }
 
     const signup = async () => {
-        setLogBtn(false);
-        setRegBtn(false);
         setContainer("container creating-mode")
-        setLoadTitle("Creating...")
-        setLoadMsg("wait a moment while we create your account")
-        await axios.post('http://localhost:8080/api/users', {
-            name: name,
-            email: email,
-            password: password
-        }).then(res=> {
-            setLoadTitle("Welcome!")
-            setLoadMsg("your account has been created with success")
-            setLogBtn(true);
-        }).catch(err=> {
-            setLoadTitle("Something went wrong!")
-            setLoadMsg(err.response.data)
-            setRegBtn(true);
-        })
+        props.setWarning({ title: "Creating...", msg: "wait a moment while we create your account"})
+        props.signup({ "name": name, "email": email, "password": password })
     }
     
     return (
@@ -61,7 +40,7 @@ function Login(props) {
             <div className={container}>
                 <div className="forms-container">
                     <div className="signin-signup">
-                        <form className="signin-form">
+                        <div className="signin-form">
                             <h2 className="title">Sign in</h2>
                             <div className="input-field">                                              
                                 <i><FontAwesomeIcon icon={faUser} /></i>
@@ -80,9 +59,9 @@ function Login(props) {
                                 />
                             </div>
                             <button className="btn solid" onClick={signin}><span>Sign in</span></button>
-                        </form>
+                        </div>
 
-                        <form className="signup-form">
+                        <div className="signup-form">
                             <h2 className="title">Sign up</h2>
                             <div className="input-field">
                                 <i><FontAwesomeIcon icon={faSmile} /></i>
@@ -110,7 +89,7 @@ function Login(props) {
                                 />
                             </div>
                             <button className="btn solid" onClick={signup}><span>Sign up</span></button>
-                        </form>
+                        </div>
                     </div>
                 </div>
 
@@ -135,17 +114,14 @@ function Login(props) {
                 </div>
 
                 <div className="panel loading-creating">
-                    <div className="content">
-                        <h3>{loadTitle}</h3>
-                        <p>{loadMsg}</p>
-                        {logBtn? <button className="btn transparent" onClick={() => setContainer("container")}>Return</button> : null}
-                        {regBtn? <button className="btn transparent" onClick={() => setContainer("container sign-up-mode")}>Return</button> : null}
-                    </div>
+                    <Warning onClick={signUp ? () => setContainer("container sign-up-mode")
+                        : () => setContainer("container")} />
                 </div>
             </div>
         </div>
     );
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ signin, signup },dispatch)
-export default connect(null,mapDispatchToProps)(Login)
+const mapStateToProps = state => ({ signUp: state.warning.signUp})
+const mapDispatchToProps = dispatch => bindActionCreators({ signin, signup, setWarning },dispatch)
+export default connect(mapStateToProps,mapDispatchToProps)(Login)

@@ -1,0 +1,52 @@
+.dashboard-content {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #eaffdc;
+}
+
+.panel-column {
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+}
+
+.panel-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.panel-info input {
+    display: flex;
+    color: #fff;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    background: none;
+    border: none;
+}
+
+.panel-info input {
+    outline: none;
+}
+
+.panel-info label {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.panel-info.income {
+    background-color: #0088FE;
+}
+
+.panel-info.expense {
+    background-color: #e94545;
+}
+
+.panel-info.balance {
+    background-color: #000;
+}

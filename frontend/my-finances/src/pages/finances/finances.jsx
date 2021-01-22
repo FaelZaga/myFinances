@@ -67,7 +67,7 @@ function Finances(props) {
     }
 
     return (
-        <div className="container-body">
+        <div className="finances-content">
             <div className="search-panel">
                 <div className="search-panel-group">
                     <div className="panel-group button">

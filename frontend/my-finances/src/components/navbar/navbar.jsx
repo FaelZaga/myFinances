@@ -31,7 +31,7 @@ function Navbar() {
             <nav className={sidebar ? "nav-menu active" : "nav-menu"} onMouseLeave={showSidebar}>
                 <ul className="nav-menu-items">
                     <li className="nav-item">
-                        <Link className="btn-item" to="/dashboard">
+                        <Link className="btn-item" to="/">
                             <i><FontAwesomeIcon icon={faChartLine}/></i>
                             <span>Dashboard</span>
                         </Link>

@@ -37,66 +37,6 @@
     outline: none;
 }
 
-.profile-dropdown {
-    display: none;
-}
-
-.profile-dropdown.active {
-    display: flex;
-    position: fixed;
-    top: 80px;
-    right: 5px;
-    background-color: #313131;
-    border: solid 1px #000;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-}
-
-.dropdown-content {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-}
-
-.dropdown-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 13px;
-    color: #fff;;
-    margin: 5px;
-}
-
-.dropdown-header i {
-    font-size: 60px;
-}
-
-.dropdown-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.dropdown-footer button {
-    width: 80px;
-    height: 30px;
-    background-color:  #252525;
-    border: none;
-    color: #fff;
-    margin: 10px;
-}
-
-.dropdown-footer button:hover {
-    background-color:  #161616;
-}
-
-.dropdown-footer button:focus {
-    outline: none;
-}
-
 .nav-menu {
     background-color: #007728;
     width: 280px;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { getPayment, createPayment, updatePayment, deletePayment } from '../../store/actions/cardActions'
+import { getPayment, createPayment, updatePayment, deletePayment } from '../../store/actions/paymentActions'
 
 import { monthsList, statusList, typesList } from '../select/selectData'
 
@@ -136,7 +136,7 @@ function CardEditor(props) {
 const mapStateToProps = state => {
     return {
         user: state.auth.user,
-        payment: state.card.payment
+        payment: state.payment.payment
     }
 }
 const mapDispatchToProps = dispatch => bindActionCreators({

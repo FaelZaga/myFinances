@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { getFinances } from '../../store/actions/financesActions'
-import { getPayment, changeVisible, changeMode, cleanPayment } from '../../store/actions/cardActions'
+import { getPayment, changeVisible, changeMode, resetPayment } from '../../store/actions/paymentActions'
 
 import SelectMenu from '../../components/select/select'
 import Input from '../../components/input/input'
@@ -49,7 +49,7 @@ function Finances(props) {
 
     const handleCreate = () => {
         isOpen()
-        props.cleanPayment()
+        props.resetPayment()
         props.changeMode()
     }
 
@@ -149,9 +149,9 @@ const mapStateToProps = state => {
     return {
         user: state.auth.user,
         list: state.finances.list,
-        visible: state.card.visible,
-        createMode: state.card.createMode
+        visible: state.payment.visible,
+        createMode: state.payment.createMode
     }
 }
-const mapDispatchToProps = dispatch => bindActionCreators({getFinances, getPayment, changeVisible, changeMode, cleanPayment},dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({getFinances, getPayment, changeVisible, changeMode, resetPayment},dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(Finances)

@@ -1,32 +1,6 @@
 import axios from 'axios'
-
 import { setMessage } from './messageActions'
-
 const BASE_URL = 'http://localhost:8080/api'
-
-export function reset() {
-    return {
-        type: 'CARD_RESET'
-    }
-}
-
-export function cleanPayment() {
-    return {
-        type: 'CARD_CLEAN_PAYMENT'
-    }
-}
-
-export function changeVisible() {
-    return {
-        type: 'CARD_CHANGE_VISIBLE'
-    }
-}
-
-export function changeMode() {
-    return {
-        type: 'CARD_CHANGE_MODE'
-    }
-}
 
 export function getPayment(id) {
     const request = axios.get(`${BASE_URL}/payments/${id}`)
@@ -41,7 +15,7 @@ export function createPayment(values) {
         axios.post(`${BASE_URL}/payments/`,values)
             .then(res=> {
                 dispatch(setMessage({ visible: true, title: "Success", msg: "Created with success", error: false}))
-                dispatch(reset())
+                dispatch(resetAllPaymentState())
             }).catch(err=> {
                 dispatch(setMessage({ visible: true, title: "Error", msg: err.response.data, error: true}))
             })
@@ -53,7 +27,7 @@ export function updatePayment(values) {
         axios.put(`${BASE_URL}/payments/${values.id}`,values)
             .then(res=> {
                 dispatch(setMessage({ visible: true, title: "Success", msg: "Updated with success", error: false}))
-                dispatch(reset())
+                dispatch(resetAllPaymentState())
             }).catch(err=> {
                 dispatch(setMessage({ visible: true, title: "Error", msg: err.response.data, error: true}))
             })
@@ -65,9 +39,33 @@ export function deletePayment(id) {
         axios.delete(`${BASE_URL}/payments/${id}`)
             .then(res=> {
                 dispatch(setMessage({ visible: true, title: "Success", msg: "Deleted with success", error: false}))
-                dispatch(reset())
+                dispatch(resetAllPaymentState())
             }).catch(err=> {
                 dispatch(setMessage({ visible: true, title: "Error", msg: err.response.data, error: true}))
             })
+    }
+}
+
+export function resetAllPaymentState() {
+    return {
+        type: 'RESET_ALL_PAYMENT_STATE'
+    }
+}
+
+export function resetPayment() {
+    return {
+        type: 'RESET_PAYMENT'
+    }
+}
+
+export function changeVisible() {
+    return {
+        type: 'CHANGE_PAYMENT_VISIBLE'
+    }
+}
+
+export function changeMode() {
+    return {
+        type: 'CHANGE_PAYMENT_MODE'
     }
 }

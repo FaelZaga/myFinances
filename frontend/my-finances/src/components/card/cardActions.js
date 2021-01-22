@@ -29,7 +29,7 @@ export function changeMode() {
 }
 
 export function getPayment(id) {
-    const request = axios.get(`${BASE_URL}/payments/`+id)
+    const request = axios.get(`${BASE_URL}/payments/${id}`)
     return {
         type: 'PAYMENT_FETCHED',
         payload: request
@@ -50,7 +50,7 @@ export function createPayment(values) {
 
 export function updatePayment(values) {
     return dispatch => {
-        axios.put(`${BASE_URL}/payments/`+values.id,values)
+        axios.put(`${BASE_URL}/payments/${values.id}`,values)
             .then(res=> {
                 dispatch(setMessage({ visible: true, title: "Success", msg: "Updated with success", error: false}))
                 dispatch(reset())
@@ -62,7 +62,7 @@ export function updatePayment(values) {
 
 export function deletePayment(id) {
     return dispatch => {
-        axios.delete(`${BASE_URL}/payments/`+id)
+        axios.delete(`${BASE_URL}/payments/${id}`)
             .then(res=> {
                 dispatch(setMessage({ visible: true, title: "Success", msg: "Deleted with success", error: false}))
                 dispatch(reset())

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import { getPayment, createPayment, updatePayment, deletePayment } from './cardActions'
 
-import { monthsList, statusList, typesList } from '../selectMenu/SelectMenuData'
+import { monthsList, statusList, typesList } from '../select/selectData'
 
 import './card.css'
 

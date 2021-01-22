@@ -2,7 +2,7 @@ package com.project.myFinances.controllers;
 
 import com.project.myFinances.exceptions.BusinessRuleException;
 import com.project.myFinances.models.entities.Payment;
-import com.project.myFinances.models.entities.User;
+import com.project.myFinances.models.entities.UserEntity;
 import com.project.myFinances.models.enums.StatusPayment;
 import com.project.myFinances.models.enums.TypePayment;
 import com.project.myFinances.services.PaymentService;
@@ -62,8 +62,8 @@ public class PaymentController {
             @RequestParam(value = "type", required = false) TypePayment type,
             @RequestParam(value = "status", required = false) StatusPayment status) {
         try {
-            User user = userService.findById(id);
-            return ResponseEntity.ok(paymentService.searchBy(user,description,month,year,type,status));
+            UserEntity user = userService.findById(id);
+            return new ResponseEntity(paymentService.searchBy(user,description,month,year,type,status), HttpStatus.OK);
         }catch(BusinessRuleException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

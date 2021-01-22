@@ -1,6 +1,6 @@
 package com.project.myFinances.services;
 
-import com.project.myFinances.models.entities.User;
+import com.project.myFinances.models.entities.UserEntity;
 import com.project.myFinances.exceptions.BusinessRuleException;
 import com.project.myFinances.models.entities.Payment;
 import com.project.myFinances.models.enums.StatusPayment;
@@ -42,7 +42,7 @@ public class PaymentService {
     }
 
     @Transactional
-    public List<Payment> searchBy(User user, String description, Integer month, Integer year, TypePayment type, StatusPayment status) {
+    public List<Payment> searchBy(UserEntity user, String description, Integer month, Integer year, TypePayment type, StatusPayment status) {
         Payment payment = fillFields(user,description,month,year,type,status);
         Example example = Example.of(payment, ExampleMatcher.matching()
                 .withIgnoreCase()
@@ -94,7 +94,7 @@ public class PaymentService {
         }
     }
 
-    public Payment fillFields(User user, String description, Integer month, Integer year, TypePayment type, StatusPayment status) {
+    public Payment fillFields(UserEntity user, String description, Integer month, Integer year, TypePayment type, StatusPayment status) {
         Payment payment = new Payment();
 
         payment.setUser(user);

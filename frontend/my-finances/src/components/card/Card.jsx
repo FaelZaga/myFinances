@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { monthsList } from '../selectMenu/SelectMenuData'
+import { monthsList } from '../select/selectData'
 
 import './card.css'
 

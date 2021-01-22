@@ -5,11 +5,11 @@ import { bindActionCreators } from 'redux'
 import { getFinances } from './financesActions'
 import { getPayment, changeVisible, changeMode, cleanPayment } from '../../components/card/cardActions'
 
-import SelectMenu from '../../components/selectMenu/select'
+import SelectMenu from '../../components/select/select'
 import Input from '../../components/input/input'
 import Card from '../../components/card/card'
 import CardEditor from '../../components/card/cardEditor'
-import { monthsList, typesList, statusList } from '../../components/selectMenu/SelectMenuData'
+import { monthsList, typesList, statusList } from '../../components/select/selectData'
 
 import './finances.css'
 

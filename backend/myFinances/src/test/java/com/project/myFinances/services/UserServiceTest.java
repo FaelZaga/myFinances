@@ -1,7 +1,8 @@
 package com.project.myFinances.services;
 
+import com.project.myFinances.controllers.requests.AuthResponse;
 import com.project.myFinances.exceptions.AuthError;
-import com.project.myFinances.models.entities.User;
+import com.project.myFinances.models.entities.UserEntity;
 import com.project.myFinances.repositories.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -29,10 +30,10 @@ public class UserServiceTest {
         String email = "email@email.com";
         String password = "pass123";
 
-        User user = User.builder().email(email).password(password).id(1l).build();
+        UserEntity user = UserEntity.builder().email(email).password(password).id(1l).build();
         Mockito.when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
 
-        User result = userService.authenticate(email, password);
+        AuthResponse result = userService.authenticate(email, password);
 
         Assertions.assertThat(result).isNotNull();
     }
@@ -51,7 +52,7 @@ public class UserServiceTest {
         String email = "email@email.com";
         String password = "pass123";
 
-        User user = User.builder().email(email).password(password).id(1l).build();
+        UserEntity user = UserEntity.builder().email(email).password(password).id(1l).build();
         Mockito.when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
 
         Throwable exception = Assertions.catchThrowable(() -> userService.authenticate("email@email.com", "123456"));

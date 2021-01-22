@@ -9,7 +9,7 @@ import { faBars, faUser, faChartLine, faPiggyBank } from '@fortawesome/free-soli
 
 import { Link } from 'react-router-dom';
 
-import './Navbar.css'
+import './navbar.css'
 
 function Navbar(props) {
     const { name, email } = props.user

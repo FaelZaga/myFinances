@@ -1,6 +1,6 @@
 package com.project.myFinances.repositories;
 
-import com.project.myFinances.models.entities.User;
+import com.project.myFinances.models.entities.UserEntity;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +27,7 @@ public class UserRepositoryTest {
 
     @Test
     public void emailDoesExist() {
-        User user = createUser();
+        UserEntity user = createUser();
         entityManager.persist(user);
 
         boolean result = userRepository.existsByEmail("user@email.com");
@@ -44,32 +44,32 @@ public class UserRepositoryTest {
 
     @Test
     public void persistUser() {
-        User user = createUser();
+        UserEntity user = createUser();
 
-        User userSaved = userRepository.save(user);
+        UserEntity userSaved = userRepository.save(user);
 
         Assertions.assertThat(userSaved.getId()).isNotNull();
     }
 
     @Test
     public void searchUserByEmail() {
-        User user = createUser();
+        UserEntity user = createUser();
         entityManager.persist(user);
 
-        Optional<User> result = userRepository.findByEmail("user@email.com");
+        Optional<UserEntity> result = userRepository.findByEmail("user@email.com");
 
         Assertions.assertThat(result.isPresent()).isTrue();
     }
 
     @Test
     public void searchUserByEmailThatDoesNotExist() {
-        Optional<User> result = userRepository.findByEmail("user@email.com");
+        Optional<UserEntity> result = userRepository.findByEmail("user@email.com");
 
         Assertions.assertThat(result.isPresent()).isFalse();
     }
 
-    public static User createUser() {
-        return User.builder()
+    public static UserEntity createUser() {
+        return UserEntity.builder()
                 .name("user")
                 .email("user@email.com")
                 .password("123456")

@@ -31,7 +31,7 @@ public class Payment {
 
     @ManyToOne
     @JoinColumn(name = "id_user")
-    private User user;
+    private UserEntity user;
 
     @Column(name = "created_at")
     @Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)

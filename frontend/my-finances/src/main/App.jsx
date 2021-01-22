@@ -1,5 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
+import axios from 'axios'
+
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import Login from '../pages/login/login'
@@ -10,6 +13,7 @@ import './app.css'
 function App(props) {
   const { user } = props.auth
   if (user) {
+    axios.defaults.headers.common['Authorization'] = user.token
     return (
       <div className="App">
         <Routes />

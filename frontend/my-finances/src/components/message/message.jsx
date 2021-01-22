@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { messageReset } from './messageActions'
+import { messageReset } from '../../store/actions/messageActions'
 
 import './message.css'
 

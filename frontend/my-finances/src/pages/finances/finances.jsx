@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { getFinances } from './financesActions'
-import { getPayment, changeVisible, changeMode, cleanPayment } from '../../components/card/cardActions'
+import { getFinances } from '../../store/actions/financesActions'
+import { getPayment, changeVisible, changeMode, cleanPayment } from '../../store/actions/cardActions'
 
 import SelectMenu from '../../components/select/select'
 import Input from '../../components/input/input'

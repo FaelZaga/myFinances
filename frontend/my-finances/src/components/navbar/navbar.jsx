@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { logout } from '../../auth/authActions'
+import { logout } from '../../store/actions/authActions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faUser, faChartLine, faPiggyBank } from '@fortawesome/free-solid-svg-icons'

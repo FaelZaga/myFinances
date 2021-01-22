@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 
-import FinancesReducer from '../pages/finances/financesReducer'
-import CardReducer from '../components/card/cardReducer'
-import AuthReducer from '../auth/authReducer'
-import MessageReducer from '../components/message/messageReducer'
-import WarningReducer from '../components/warning/warningReducer'
+import FinancesReducer from '../store/reducers/financesReducer'
+import CardReducer from '../store/reducers/cardReducer'
+import AuthReducer from '../store/reducers/authReducer'
+import MessageReducer from '../store/reducers/messageReducer'
+import WarningReducer from '../store/reducers/warningReducer'
 
 const rootReducer = combineReducers({
     finances: FinancesReducer,

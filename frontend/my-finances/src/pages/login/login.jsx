@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { signin, signup } from '../../auth/authActions'
-import { setWarning } from '../../components/warning/warningActions'
+import { signin, signup } from '../../store/actions/authActions'
+import { setWarning } from '../../store/actions/warningActions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock, faSmile, faEnvelope } from '@fortawesome/free-solid-svg-icons'

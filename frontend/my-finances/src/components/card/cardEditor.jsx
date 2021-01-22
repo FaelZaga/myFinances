@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { getPayment, createPayment, updatePayment, deletePayment } from './cardActions'
+import { getPayment, createPayment, updatePayment, deletePayment } from '../../store/actions/cardActions'
 
 import { monthsList, statusList, typesList } from '../select/selectData'
 

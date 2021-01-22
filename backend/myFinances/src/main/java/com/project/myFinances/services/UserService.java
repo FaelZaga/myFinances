@@ -1,6 +1,7 @@
 package com.project.myFinances.services;
 
 import com.project.myFinances.controllers.requests.AuthResponse;
+import com.project.myFinances.controllers.requests.TokenRequest;
 import com.project.myFinances.exceptions.AuthError;
 import com.project.myFinances.exceptions.BusinessRuleException;
 import com.project.myFinances.models.entities.UserEntity;
@@ -74,6 +75,10 @@ public class UserService implements UserDetailsService {
         if (userRepository.existsByEmail(email)) {
             throw new BusinessRuleException("Email already exists.");
         }
+    }
+
+    public boolean validateToken(String token) {
+        return jwtService.validateToken(token);
     }
 
     public void validate(UserEntity user) {

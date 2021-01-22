@@ -27,7 +27,8 @@
     align-items: center;
     font-size: 13px;
     color: #fff;
-    margin-bottom: 10px;
+    padding-bottom: 10px;
+    z-index: 1;
 }
 
 .dropdown-header i {

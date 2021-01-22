@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import axios from 'axios'
+
+import { validateToken } from '../store/actions/authActions'
 
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
@@ -11,15 +14,21 @@ import Routes from './routes'
 import './app.css'
 
 function App(props) {
-  const { user } = props.auth
-  if (user) {
+  const { user, validToken } = props.auth
+
+  useEffect(() => {
+    if (user) { props.validateToken({ "token": user.token, "valid": validToken }) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+ 
+  if (user && validToken) {
     axios.defaults.headers.common['Authorization'] = user.token
     return (
       <div className="App">
         <Routes />
       </div>
     );
-  }else if (!user) {
+  }else if (!user && !validToken) {
     return ( <Login/> )
   }else {
     return false
@@ -27,4 +36,5 @@ function App(props) {
 }
 
 const mapStateToProps = state => ({ auth: state.auth })
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = dispatch => bindActionCreators({ validateToken },dispatch)
+export default connect(mapStateToProps,mapDispatchToProps)(App)

@@ -1,6 +1,7 @@
 package com.project.myFinances.controllers;
 
 import com.project.myFinances.controllers.requests.AuthRequest;
+import com.project.myFinances.controllers.requests.TokenRequest;
 import com.project.myFinances.exceptions.AuthError;
 import com.project.myFinances.exceptions.BusinessRuleException;
 import com.project.myFinances.models.entities.UserEntity;
@@ -41,6 +42,12 @@ public class UserController {
         }catch(BusinessRuleException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @PostMapping("/validateToken")
+    public ResponseEntity validateToken(@RequestBody TokenRequest token) {
+        TokenRequest isValid = new TokenRequest(token.getToken(),userService.validateToken(token.getToken()));
+        return new ResponseEntity(isValid, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

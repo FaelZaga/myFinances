@@ -31,3 +31,17 @@ function submit(values, url, msg) {
             })
     }
 }
+
+export function validateToken(values) {
+    return dispatch => {
+        if (values.token) {
+            axios.post(`${BASE_URL}/users/validateToken`, values)
+                .then(res => {
+                    dispatch({ type: 'TOKEN_VALIDATED', payload: res.data.valid })
+                })
+                .catch(err => dispatch({ type: 'TOKEN_VALIDATED', payload: false }))
+        } else {
+            dispatch({ type: 'TOKEN_VALIDATED', payload: false })
+        }
+    }
+}

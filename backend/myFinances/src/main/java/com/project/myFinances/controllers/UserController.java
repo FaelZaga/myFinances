@@ -21,9 +21,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private PaymentService paymentService;
-
     @PostMapping("/auth")
     public ResponseEntity authenticate(@RequestBody AuthRequest user) {
         try {
@@ -57,16 +54,6 @@ public class UserController {
             userService.delete(user);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }catch (BusinessRuleException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @GetMapping("{id}/balance")
-    public ResponseEntity getBalance(@PathVariable Long id) {
-        try {
-            userService.findById(id);
-            return ResponseEntity.ok(paymentService.getPaymentBalanceByType(id));
-        }catch(BusinessRuleException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

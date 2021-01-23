@@ -25,7 +25,7 @@ class Message extends Component {
         const { visible, title, msg, error } = this.props.message
         return (
             <div className={ visible ? "message-content active" : "message-content"}
-            style = {error? { backgroundColor: "#e94545"} : { backgroundColor: "#42c079"} }
+            style = {error? { backgroundColor: "#b91c1c"} : { backgroundColor: "#149b4f"} }
             >
                 <div className="message-header">
                     <span>{title}</span>

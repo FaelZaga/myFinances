@@ -34,8 +34,8 @@ export default class Example extends PureComponent {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Line type="monotone" dataKey="Incomes" stroke="#0088FE" strokeWidth={7} />
-        <Line type="monotone" dataKey="Expenses" stroke="#e94545" strokeWidth={7} />
+        <Line type="monotone" dataKey="Incomes" stroke="#0c61aa" strokeWidth={7} />
+        <Line type="monotone" dataKey="Expenses" stroke="#b91c1c" strokeWidth={7} />
         <Line type="monotone" dataKey="Balance" stroke="#000" strokeWidth={7} />
       </LineChart>
     );

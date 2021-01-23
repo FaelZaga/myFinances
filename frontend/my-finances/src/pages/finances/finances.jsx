@@ -14,7 +14,7 @@ import { monthsList, typesList, statusList } from '../../components/select/selec
 import './finances.css'
 
 function Finances(props) {
-    const finances = props.list
+    const finances = props.finances
     const visible = props.visible
     const createMode = props.createMode
     const { id } = props.user
@@ -28,7 +28,7 @@ function Finances(props) {
     useEffect(() => {
         loadFinances()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[props.list])
+    },[finances])
 
     const loadFinances = () => {
         props.getFinances({
@@ -148,7 +148,7 @@ function Finances(props) {
 const mapStateToProps = state => {
     return {
         user: state.auth.user,
-        list: state.finances.list,
+        finances: state.finances.finances,
         visible: state.payment.visible,
         createMode: state.payment.createMode
     }

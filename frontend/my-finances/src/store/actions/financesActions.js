@@ -8,3 +8,11 @@ export function getFinances(values) {
         payload: request
     }
 }
+
+export function getBalance(id) {
+    const request = axios.get(`${BASE_URL}/payments/${id}/balance`)
+    return {
+        type: 'BALANCE_FETCH',
+        payload: request
+    }
+}

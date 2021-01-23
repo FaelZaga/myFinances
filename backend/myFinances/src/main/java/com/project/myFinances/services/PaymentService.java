@@ -1,5 +1,6 @@
 package com.project.myFinances.services;
 
+import com.project.myFinances.controllers.requests.BalanceResponse;
 import com.project.myFinances.models.entities.UserEntity;
 import com.project.myFinances.exceptions.BusinessRuleException;
 import com.project.myFinances.models.entities.Payment;
@@ -51,7 +52,7 @@ public class PaymentService {
     }
 
     @Transactional(readOnly = true)
-    public BigDecimal getPaymentBalanceByType(Long id) {
+    public BalanceResponse getPaymentBalanceByType(Long id) {
         BigDecimal incomes = paymentRepository.getPaymentBalanceByType(id,TypePayment.INCOME);
         BigDecimal expenses = paymentRepository.getPaymentBalanceByType(id,TypePayment.EXPENSES);
 
@@ -62,7 +63,9 @@ public class PaymentService {
             expenses = BigDecimal.ZERO;
         }
 
-        return incomes.subtract(expenses);
+        BalanceResponse balance = new BalanceResponse(incomes.subtract(expenses),incomes,expenses);
+
+        return balance;
     }
 
     public Payment findById(Long id) {

@@ -79,4 +79,14 @@ public class PaymentController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("{userId}/balance")
+    public ResponseEntity getBalance(@PathVariable Long userId) {
+        try {
+            userService.findById(userId);
+            return ResponseEntity.ok(paymentService.getPaymentBalanceByType(userId));
+        }catch(BusinessRuleException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

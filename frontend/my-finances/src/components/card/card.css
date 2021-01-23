@@ -92,30 +92,30 @@
 }
 
 .card .card-column .action.new {
-    background-color : #aaac65;
+    background-color : #6c772b;
 }
 
 .card .card-column .action.edit,
 .card .card-column .action.create {
-    background-color : #42c079;
+    background-color : #149b4f;
 }
 
 .card .card-column .action.edit:hover,
 .card .card-column .action.create:hover {
-    background-color : #2e8353;
+    background-color : #095028;
 }
 
 .card .card-column .action.income {
-    background-color : #0088FE;
+    background-color : #0c61aa;
 }
 
 .card .card-column .action.expenses,
 .card .card-column .action.cancel {
-    background-color : #e94545;
+    background-color : #b91c1c;
 }
 
 .card .card-column .action.cancel:hover {
-    background-color : #8d3434;
+    background-color : #521313;
 }
 
 .card .card-column .action.delete {

@@ -89,4 +89,16 @@ public class PaymentController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("{userId}/chart")
+    public ResponseEntity getBalanceByMonthAndYear(@PathVariable Long userId,
+                                            @RequestParam(value = "month") Integer month,
+                                            @RequestParam(value = "year") Integer year) {
+        try {
+            userService.findById(userId);
+            return ResponseEntity.ok(paymentService.getBalanceByMonthAndYear(userId,month,year));
+        }catch(BusinessRuleException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

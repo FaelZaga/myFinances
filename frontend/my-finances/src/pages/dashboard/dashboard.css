@@ -1,52 +1,68 @@
 .dashboard-content {
-    height: 100vh;
+    height: 87vh;
+    width: 100vw;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     background-color: #eaffdc;
+    flex-direction: column;
+}
+
+.chart-content {
+    flex: 1;
+    display: flex;
+}
+
+.chart-content.chart {
+    margin: 20px 20px 0 0;
 }
 
 .panel-column {
-    display: flex;
-    flex-direction: row;
-    margin-top: 15px;
-}
-
-.panel-info {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    max-height: 100px;
+    margin: 20px;
+    border-radius: 20px;
 }
 
-.panel-info input {
+.panel-column label {
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.panel-column label:first-child {
     display: flex;
     color: #fff;
-    text-align: center;
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 700;
     background: none;
     border: none;
 }
 
-.panel-info input {
-    outline: none;
-}
-
-.panel-info label {
-    color: #fff;
-    font-size: 1.2rem;
-    font-weight: 500;
-}
-
-.panel-info.income {
+.panel-column.income {
     background-color: #0c61aa;
 }
 
-.panel-info.expense {
+.panel-column.expense {
     background-color: #b91c1c;
 }
 
-.panel-info.balance {
+.panel-column.balance {
     background-color: #000;
+}
+
+@media (max-width: 870px) {
+    .dashboard-content {
+        overflow-y: scroll;
+    }
+
+    .chart-content {
+        flex-direction: column;
+    }
+
+    .panel-column {
+        margin: 5px 20px;
+    }
 }

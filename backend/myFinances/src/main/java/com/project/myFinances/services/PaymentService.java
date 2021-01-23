@@ -14,8 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Component
 public class PaymentService {
@@ -53,8 +52,10 @@ public class PaymentService {
 
     @Transactional(readOnly = true)
     public BalanceResponse getPaymentBalanceByType(Long id) {
-        BigDecimal incomes = paymentRepository.getPaymentBalanceByType(id,TypePayment.INCOME);
-        BigDecimal expenses = paymentRepository.getPaymentBalanceByType(id,TypePayment.EXPENSES);
+        BigDecimal incomes = paymentRepository.
+                getPaymentBalanceByType(id,TypePayment.INCOME,StatusPayment.CANCELED);
+        BigDecimal expenses = paymentRepository.
+                getPaymentBalanceByType(id,TypePayment.EXPENSES,StatusPayment.CANCELED);
 
         if (incomes == null) {
             incomes = BigDecimal.ZERO;
@@ -63,7 +64,35 @@ public class PaymentService {
             expenses = BigDecimal.ZERO;
         }
 
-        BalanceResponse balance = new BalanceResponse(incomes.subtract(expenses),incomes,expenses);
+        BalanceResponse balance = new BalanceResponse("Total Balance",incomes.subtract(expenses),incomes,expenses);
+
+        return balance;
+    }
+
+    public List<BalanceResponse> getBalanceByMonthAndYear(Long id, Integer month, Integer year) {
+        List <BalanceResponse> balance = new ArrayList<>();
+
+        for (int i = 0; i < 6 ; i++) {
+            BigDecimal incomes = paymentRepository.
+                    getBalanceByMonthAndYear(id,TypePayment.INCOME,StatusPayment.CANCELED,month,year);
+            BigDecimal expenses = paymentRepository.
+                    getBalanceByMonthAndYear(id,TypePayment.EXPENSES,StatusPayment.CANCELED,month,year);
+
+            if (incomes == null) {
+                incomes = BigDecimal.ZERO;
+            }
+            if (expenses == null) {
+                expenses = BigDecimal.ZERO;
+            }
+
+            balance.add(new BalanceResponse(getMonthString(month),incomes.subtract(expenses),incomes,expenses));
+
+            month -= 1;
+            if (month < 1) {
+                year -= 1;
+                month = 12;
+            }
+        }
 
         return balance;
     }
@@ -95,6 +124,11 @@ public class PaymentService {
         if (payment.getStatus() == null) {
             throw new BusinessRuleException("Incorrect status field");
         }
+    }
+
+    public String getMonthString(Integer month) {
+        String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        return monthNames[month-1];
     }
 
     public Payment fillFields(UserEntity user, String description, Integer month, Integer year, TypePayment type, StatusPayment status) {

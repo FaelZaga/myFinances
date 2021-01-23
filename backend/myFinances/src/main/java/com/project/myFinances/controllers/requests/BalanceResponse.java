@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BalanceResponse {
+    private String name;
     private BigDecimal balance;
     private BigDecimal incomes;
     private BigDecimal expenses;

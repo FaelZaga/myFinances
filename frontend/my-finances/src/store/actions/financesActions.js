@@ -16,3 +16,11 @@ export function getBalance(id) {
         payload: request
     }
 }
+
+export function getChart(id,values) {
+    const request = axios.get(`${BASE_URL}/payments/${id}/chart`, { params: values })
+    return {
+        type: 'CHART_FETCH',
+        payload: request
+    }
+}

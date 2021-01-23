@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { signin, signup } from '../../store/actions/authActions'
+import { signin, signup } from '../../store/actions/userActions'
 import { setWarning } from '../../store/actions/warningActions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

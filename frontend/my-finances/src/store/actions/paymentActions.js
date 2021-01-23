@@ -14,10 +14,10 @@ export function createPayment(values) {
     return dispatch => {
         axios.post(`${BASE_URL}/payments/`,values)
             .then(res=> {
-                dispatch(setMessage({ visible: true, title: "Success", msg: "Created with success", error: false}))
+                dispatch(setMessage({ visible: true, title: "Done!", msg: "Created with success", error: false}))
                 dispatch(resetAllPaymentState())
             }).catch(err=> {
-                dispatch(setMessage({ visible: true, title: "Error", msg: err.response.data, error: true}))
+                dispatch(setMessage({ visible: true, title: "Oops!", msg: err.response.data, error: true}))
             })
     }
 }
@@ -26,10 +26,10 @@ export function updatePayment(values) {
     return dispatch => {
         axios.put(`${BASE_URL}/payments/${values.id}`,values)
             .then(res=> {
-                dispatch(setMessage({ visible: true, title: "Success", msg: "Updated with success", error: false}))
+                dispatch(setMessage({ visible: true, title: "Done!", msg: "Updated with success", error: false}))
                 dispatch(resetAllPaymentState())
             }).catch(err=> {
-                dispatch(setMessage({ visible: true, title: "Error", msg: err.response.data, error: true}))
+                dispatch(setMessage({ visible: true, title: "Oops!", msg: err.response.data, error: true}))
             })
     }
 }
@@ -38,10 +38,10 @@ export function deletePayment(id) {
     return dispatch => {
         axios.delete(`${BASE_URL}/payments/${id}`)
             .then(res=> {
-                dispatch(setMessage({ visible: true, title: "Success", msg: "Deleted with success", error: false}))
+                dispatch(setMessage({ visible: true, title: "Done!", msg: "Deleted with success", error: false}))
                 dispatch(resetAllPaymentState())
             }).catch(err=> {
-                dispatch(setMessage({ visible: true, title: "Error", msg: err.response.data, error: true}))
+                dispatch(setMessage({ visible: true, title: "Oops!", msg: err.response.data, error: true}))
             })
     }
 }

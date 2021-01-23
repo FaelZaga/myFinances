@@ -1,5 +1,5 @@
 .dashboard-content {
-    height: 87vh;
+    height: 100vh;
     width: 100vw;
     display: flex;
     background-color: #eaffdc;
@@ -55,6 +55,7 @@
 
 @media (max-width: 870px) {
     .dashboard-content {
+        height: 87vh;
         overflow-y: scroll;
     }
 

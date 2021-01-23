@@ -49,7 +49,7 @@ function Dashboard(props) {
 
 const mapStateToProps = state => {
     return {
-        user: state.auth.user,
+        user: state.user.user,
         balance: state.finances.balance,
         balances: state.finances.balances
     }

@@ -147,7 +147,7 @@ function Finances(props) {
 
 const mapStateToProps = state => {
     return {
-        user: state.auth.user,
+        user: state.user.user,
         finances: state.finances.finances,
         visible: state.payment.visible,
         createMode: state.payment.createMode

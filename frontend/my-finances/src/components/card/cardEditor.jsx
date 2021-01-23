@@ -135,7 +135,7 @@ function CardEditor(props) {
 
 const mapStateToProps = state => {
     return {
-        user: state.auth.user,
+        user: state.user.user,
         payment: state.payment.payment
     }
 }

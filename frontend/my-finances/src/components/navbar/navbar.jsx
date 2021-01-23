@@ -27,17 +27,17 @@ function Navbar() {
                     <button className="navbar-toggle" onClick={showProfile}><FontAwesomeIcon icon={faUser} /></button>
                 </div>
             </div>
-            <Profile open={profile} />
-            <nav className={sidebar ? "nav-menu active" : "nav-menu"} onMouseLeave={showSidebar}>
+            <Profile open={profile} close={() => setProfile(false)}/>
+            <nav className={sidebar ? "nav-menu active" : "nav-menu"} onMouseLeave={() => setSidebar(false)}>
                 <ul className="nav-menu-items">
                     <li className="nav-item">
-                        <Link className="btn-item" to="/">
+                        <Link className="btn-item" to="/" onClick={() => setSidebar(false)}>
                             <i><FontAwesomeIcon icon={faChartLine}/></i>
                             <span>Dashboard</span>
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="btn-item" to="/finances">
+                        <Link className="btn-item" to="/finances" onClick={() => setSidebar(false)}>
                             <i><FontAwesomeIcon icon={faPiggyBank}/></i>
                             <span>Finances</span>
                         </Link>

@@ -53,11 +53,27 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public UserEntity save(UserEntity user) {
+    public AuthResponse save(UserEntity user) {
         validate(user);
+        String unencryptedPassword = user.getPassword();
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
-        return userRepository.save(user);
+
+        UserEntity newUser = userRepository.save(user);
+
+        return authenticate(newUser.getEmail(), unencryptedPassword);
+    }
+
+    @Transactional
+    public AuthResponse update(UserEntity user) {
+        validate(user);
+        String unencryptedPassword = user.getPassword();
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+
+        UserEntity updatedUser = userRepository.save(user);
+
+        return authenticate(updatedUser.getEmail(), unencryptedPassword);
     }
 
     @Transactional

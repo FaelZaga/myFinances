@@ -41,6 +41,15 @@ public class UserController {
         }
     }
 
+    @PutMapping
+    public ResponseEntity update(@RequestBody UserEntity user) {
+        try {
+            return ResponseEntity.ok(userService.update(user));
+        }catch(BusinessRuleException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @PostMapping("/validateToken")
     public ResponseEntity validateToken(@RequestBody TokenRequest token) {
         TokenRequest isValid = new TokenRequest(token.getToken(),userService.validateToken(token.getToken()));

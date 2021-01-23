@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import axios from 'axios'
 
-import { validateToken } from '../store/actions/authActions'
+import { validateToken } from '../store/actions/userActions'
 
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
@@ -14,7 +14,7 @@ import Routes from './routes'
 import './app.css'
 
 function App(props) {
-  const { user, validToken } = props.auth
+  const { user, validToken } = props.user
 
   useEffect(() => {
     if (user) { props.validateToken({ "token": user.token, "valid": validToken }) }
@@ -35,6 +35,6 @@ function App(props) {
   }
 }
 
-const mapStateToProps = state => ({ auth: state.auth })
+const mapStateToProps = state => ({ user: state.user })
 const mapDispatchToProps = dispatch => bindActionCreators({ validateToken },dispatch)
 export default connect(mapStateToProps,mapDispatchToProps)(App)

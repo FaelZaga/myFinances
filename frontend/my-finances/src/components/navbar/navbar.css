@@ -94,3 +94,39 @@
     font-size: 2.4rem;
 }
 
+@media (max-width: 570px) {
+    .navbar h1 {
+        font-size: 2.2rem;
+        font-weight: 500;
+    }
+    
+    .navbar-toggle {
+        font-size: 1.7rem;
+    }
+
+    .navbar-toggle:hover {
+        font-size: 2rem;
+    }
+
+    .btn-item {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+    
+    .btn-item:hover {
+        font-weight: 500;
+    }
+    
+    .btn-item i {
+        height: 2.5rem;
+        width: 2.5rem;
+        font-size: 1.8rem;
+    }
+    
+    .btn-item:hover i {
+        height: 3rem;
+        width: 3rem;
+        font-size: 2rem;
+    }
+}
+

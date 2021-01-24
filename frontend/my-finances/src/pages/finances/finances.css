@@ -145,7 +145,7 @@ input::-webkit-outer-spin-button {
 
 @media (max-width: 570px) {
     .finances-panel .edit-panel {
-        transform: translateY(-300px);
+        transform: translateY(-330px);
         transition: .4s .4s ease-in-out;
     }
 }

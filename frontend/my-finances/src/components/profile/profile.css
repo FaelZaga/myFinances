@@ -49,7 +49,7 @@
 .dropdown-body.active {
     display: flex;
     opacity: 1;
-    height: 190px;
+    height: 220px;
     justify-content: center;
     align-items: center;
     pointer-events: all;
@@ -97,4 +97,10 @@
 
 .dropdown-footer button:focus {
     outline: none;
+}
+
+@media (max-width: 570px) {
+    .dropdown-header i {
+        font-size: 40px;
+    }
 }

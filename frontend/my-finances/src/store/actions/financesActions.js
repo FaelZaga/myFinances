@@ -1,9 +1,9 @@
 import axios from 'axios'
-const BASE_URL = 'http://localhost:8080/api'
+import api from '../../main/api'
 
 export function getFinances(values) {
     return dispatch => {
-        axios.get(`${BASE_URL}/payments`, { params: values })
+        axios.get(`${api.BASE_URL}/payments`, { params: values })
         .then(res => {
             dispatch({
                 type: 'FINANCES_FETCH',
@@ -20,7 +20,7 @@ export function getFinances(values) {
 
 export function getBalance(id) {
     return dispatch => {
-        axios.get(`${BASE_URL}/payments/${id}/balance`)
+        axios.get(`${api.BASE_URL}/payments/${id}/balance`)
         .then(res => {
             dispatch({
                 type: 'BALANCE_FETCH',
@@ -36,7 +36,7 @@ export function getBalance(id) {
 }
 
 export function getChart(id,values) {
-    const request = axios.get(`${BASE_URL}/payments/${id}/chart`, { params: values })
+    const request = axios.get(`${api.BASE_URL}/payments/${id}/chart`, { params: values })
     return {
         type: 'CHART_FETCH',
         payload: request

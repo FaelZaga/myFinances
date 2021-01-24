@@ -44,7 +44,7 @@ function Login(props) {
                             <h2 className="title">Sign in</h2>
                             <div className="input-field">                                              
                                 <i><FontAwesomeIcon icon={faUser} /></i>
-                                <input type="text" 
+                                <input type="email" 
                                     placeholder="Enter email"
                                     onChange={e => setEmail(e.target.value)}
                                     value={email}
@@ -74,7 +74,7 @@ function Login(props) {
                             </div>
                             <div className="input-field">
                                 <i><FontAwesomeIcon icon={faEnvelope} /></i>
-                                <input type="text"
+                                <input type="email"
                                     placeholder="Enter email"
                                     onChange={e => setEmail(e.target.value)}
                                     value={email}

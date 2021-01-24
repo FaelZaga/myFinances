@@ -304,18 +304,18 @@ body, input {
     }
 
     .panel h3 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
     .panel p {
-        font-size: 1rem;
+        font-size: 0.8rem;
         padding: 0.5rem 0;
     }
 
     .btn.transparent {
-        width: 120px;
-        height: 50px;
-        font-size: 1.2rem;
+        width: 100px;
+        height: 40px;
+        font-size: 1rem;
     }
 
     .panel {

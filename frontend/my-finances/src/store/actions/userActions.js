@@ -1,15 +1,15 @@
 import axios from 'axios'
 import { setWarning } from './warningActions'
 import { setMessage } from './messageActions'
-const BASE_URL = 'http://localhost:8080/api'
+import api from '../../main/api'
 
 export function signin(values) {
-    return submit(values, `${BASE_URL}/users/auth`,
+    return submit(values, `${api.BASE_URL}/users/auth`,
     { title: "Welcome!", msg: "welcome back again :)", signUp: false})
 }
 
 export function signup(values) {
-    return submit(values, `${BASE_URL}/users`,
+    return submit(values, `${api.BASE_URL}/users`,
     { title: "Success!", msg: "welcome to myFinances!", signUp: true})
 }
 
@@ -29,7 +29,7 @@ function submit(values, url, msg) {
 
 export function update(id,values) {
     return dispatch => {
-        axios.put(`${BASE_URL}/users/${id}`, values)
+        axios.put(`${api.BASE_URL}/users/${id}`, values)
             .then(res => {
                 dispatch(setMessage({ visible: true, title: "Done!", msg: "Profile updated", error: false}))
                 dispatch({ type: 'USER_FETCHED', payload: res.data })
@@ -40,7 +40,7 @@ export function update(id,values) {
 export function validateToken(values) {
     return dispatch => {
         if (values.token) {
-            axios.post(`${BASE_URL}/users/validateToken`, values)
+            axios.post(`${api.BASE_URL}/users/validateToken`, values)
                 .then(res => dispatch({ type: 'TOKEN_VALIDATED', payload: res.data.valid }))
                 .catch(err => dispatch({ type: 'TOKEN_VALIDATED', payload: false }))
         } else {

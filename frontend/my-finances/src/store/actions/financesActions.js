@@ -16,14 +16,22 @@ export function getFinances(values) {
             })
         })
     }
-
 }
 
 export function getBalance(id) {
-    const request = axios.get(`${BASE_URL}/payments/${id}/balance`)
-    return {
-        type: 'BALANCE_FETCH',
-        payload: request
+    return dispatch => {
+        axios.get(`${BASE_URL}/payments/${id}/balance`)
+        .then(res => {
+            dispatch({
+                type: 'BALANCE_FETCH',
+                payload: res
+            })
+        }).catch(err => {
+            dispatch({
+                type: 'TOKEN_VALIDATED',
+                payload: null
+            })
+        })
     }
 }
 

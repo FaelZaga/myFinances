@@ -27,7 +27,7 @@ function Navbar() {
                     <button className="navbar-toggle" onClick={showProfile}><FontAwesomeIcon icon={faUser} /></button>
                 </div>
             </div>
-            <Profile open={profile} close={() => setProfile(false)}/>
+            <Profile open={profile} />
             <nav className={sidebar ? "nav-menu active" : "nav-menu"} onMouseLeave={() => setSidebar(false)}>
                 <ul className="nav-menu-items">
                     <li className="nav-item">

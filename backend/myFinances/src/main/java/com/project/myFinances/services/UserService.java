@@ -2,6 +2,7 @@ package com.project.myFinances.services;
 
 import com.project.myFinances.controllers.requests.AuthResponse;
 import com.project.myFinances.controllers.requests.TokenRequest;
+import com.project.myFinances.controllers.requests.UserUpdateRequest;
 import com.project.myFinances.exceptions.AuthError;
 import com.project.myFinances.exceptions.BusinessRuleException;
 import com.project.myFinances.models.entities.UserEntity;
@@ -55,9 +56,9 @@ public class UserService implements UserDetailsService {
     @Transactional
     public AuthResponse save(UserEntity user) {
         validate(user);
+        validateEmail(user.getEmail());
         String unencryptedPassword = user.getPassword();
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         UserEntity newUser = userRepository.save(user);
 
@@ -65,15 +66,41 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public AuthResponse update(UserEntity user) {
-        validate(user);
-        String unencryptedPassword = user.getPassword();
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
+    public AuthResponse update(Long id, UserUpdateRequest user, String token) {
+        if (user.getPassword()=="") {
+            throw new BusinessRuleException("Password is needed to update profile");
+        }
 
-        UserEntity updatedUser = userRepository.save(user);
+        UserEntity currentUser = userRepository.findById(id)
+                .orElseThrow(() -> new BusinessRuleException("User not found"));
 
-        return authenticate(updatedUser.getEmail(), unencryptedPassword);
+        if (user.getName()!="") {
+            currentUser.setName(user.getName());
+        }
+        if (user.getEmail()!="") {
+            if (userRepository.existsByEmail(user.getEmail())) {
+                if (!user.getEmail().equals(currentUser.getEmail()))
+                    throw new BusinessRuleException("Email already exists.");
+            }
+            currentUser.setEmail(user.getEmail());
+        }
+        if (!user.getNewPassword().equals(user.getConfirmPassword())) {
+            throw new BusinessRuleException("New and confirm password do not match");
+        }else if (!passwordEncoder.matches(user.getPassword(),currentUser.getPassword())) {
+            throw new BusinessRuleException("Incorrect current password");
+        }else if (user.getNewPassword()!="") {
+            currentUser.setPassword(user.getNewPassword());
+        }
+
+        validate(currentUser);
+
+        if (user.getNewPassword()!="") {
+            currentUser.setPassword(passwordEncoder.encode(user.getNewPassword()));
+        }
+
+        UserEntity updatedUser = userRepository.save(currentUser);
+
+        return new AuthResponse(updatedUser.getId(),updatedUser.getName(),updatedUser.getEmail(),token);
     }
 
     @Transactional
@@ -98,7 +125,6 @@ public class UserService implements UserDetailsService {
     }
 
     public void validate(UserEntity user) {
-        validateEmail(user.getEmail());
         if (user.getName() == null || user.getName().length() < 3) {
             throw new BusinessRuleException("Name is required with 3 characters minimum");
         }

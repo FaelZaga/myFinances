@@ -2,6 +2,7 @@ package com.project.myFinances.controllers;
 
 import com.project.myFinances.controllers.requests.AuthRequest;
 import com.project.myFinances.controllers.requests.TokenRequest;
+import com.project.myFinances.controllers.requests.UserUpdateRequest;
 import com.project.myFinances.exceptions.AuthError;
 import com.project.myFinances.exceptions.BusinessRuleException;
 import com.project.myFinances.models.entities.UserEntity;
@@ -41,10 +42,12 @@ public class UserController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity update(@RequestBody UserEntity user) {
+    @PutMapping("{id}")
+    public ResponseEntity update(@PathVariable Long id,
+                                 @RequestBody UserUpdateRequest user,
+                                 @RequestHeader("Authorization") String token) {
         try {
-            return ResponseEntity.ok(userService.update(user));
+            return ResponseEntity.ok(userService.update(id,user,token));
         }catch(BusinessRuleException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

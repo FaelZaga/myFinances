@@ -16,9 +16,7 @@ export function createPayment(values) {
             .then(res=> {
                 dispatch(setMessage({ visible: true, title: "Done!", msg: "Created with success", error: false}))
                 dispatch(resetAllPaymentState())
-            }).catch(err=> {
-                dispatch(setMessage({ visible: true, title: "Oops!", msg: err.response.data, error: true}))
-            })
+            }).catch(err=> dispatch(setMessage({ visible: true, title: "Oops!", msg: err.response.data, error: true})))
     }
 }
 
@@ -28,9 +26,7 @@ export function updatePayment(values) {
             .then(res=> {
                 dispatch(setMessage({ visible: true, title: "Done!", msg: "Updated with success", error: false}))
                 dispatch(resetAllPaymentState())
-            }).catch(err=> {
-                dispatch(setMessage({ visible: true, title: "Oops!", msg: err.response.data, error: true}))
-            })
+            }).catch(err=> dispatch(setMessage({ visible: true, title: "Oops!", msg: err.response.data, error: true})))
     }
 }
 
@@ -40,9 +36,7 @@ export function deletePayment(id) {
             .then(res=> {
                 dispatch(setMessage({ visible: true, title: "Done!", msg: "Deleted with success", error: false}))
                 dispatch(resetAllPaymentState())
-            }).catch(err=> {
-                dispatch(setMessage({ visible: true, title: "Oops!", msg: err.response.data, error: true}))
-            })
+            }).catch(err=> dispatch(setMessage({ visible: true, title: "Oops!", msg: err.response.data, error: true})))
     }
 }
 

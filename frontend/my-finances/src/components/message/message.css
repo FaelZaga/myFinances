@@ -12,6 +12,7 @@
     transition: .4s ease-in-out;
     opacity: 0;
     pointer-events: none;
+    z-index: 5;
 }
 
 .message-header span {
